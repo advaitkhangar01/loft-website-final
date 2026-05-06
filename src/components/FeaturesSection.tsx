@@ -62,7 +62,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section className="bg-black text-white py-32 px-6 flex flex-col items-center overflow-hidden">
+    <section id="spaces" className="bg-black text-white py-32 px-6 flex flex-col items-center overflow-hidden">
       {/* Header */}
       <div className="relative mb-24 text-center">
         {/* Sparkles */}

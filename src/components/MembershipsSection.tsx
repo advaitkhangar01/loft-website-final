@@ -1,12 +1,53 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { motion } from "framer-motion";
 
 export default function MembershipsSection() {
+  const router = useRouter();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const [submittingIndex, setSubmittingIndex] = useState<number | null>(null);
+  const [errorIndex, setErrorIndex] = useState<number | null>(null);
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
+    if (expandedIndex !== index) {
+      // Reset states when opening a new one
+      setErrorIndex(null);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>, index: number, title: string) => {
+    e.preventDefault();
+    setSubmittingIndex(index);
+    setErrorIndex(null);
+    
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      formType: "membership",
+      membershipType: title,
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      dateFrom: formData.get("dateFrom"),
+      dateTo: formData.get("dateTo"),
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      
+      if (!res.ok) throw new Error("Failed to submit");
+      router.push("/success");
+    } catch (err) {
+      setErrorIndex(index);
+    } finally {
+      setSubmittingIndex(null);
+    }
   };
 
   const memberships = [
@@ -57,12 +98,18 @@ export default function MembershipsSection() {
     <section className="w-full flex flex-col">
       {memberships.map((membership, index) => {
         const isExpanded = expandedIndex === index;
+        const isSubmitting = submittingIndex === index;
+        const hasError = errorIndex === index;
 
         return (
-          <div 
+          <motion.div 
             key={index} 
             className={`w-full py-[28px] px-[40px] transition-colors duration-300 ${membership.bgColor} ${membership.textColor}`}
             style={membership.bgStyle}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10%" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {/* Top Clickable Row */}
             <div 
@@ -122,15 +169,17 @@ export default function MembershipsSection() {
                   </div>
                   
                   <div className="flex-[2]">
-                    <form className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" onSubmit={(e) => e.preventDefault()}>
+                    <form className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" onSubmit={(e) => handleSubmit(e, index, membership.title)}>
                       {/* Name */}
                       <div className="flex flex-col gap-2">
                         <label className="font-body text-sm uppercase tracking-widest opacity-70">Name</label>
                         <input 
+                          name="name"
                           type="text" 
                           placeholder="Your full name"
                           className="bg-transparent border-b border-current/30 py-3 font-body text-lg outline-none focus:border-current transition-colors placeholder:text-current/30"
                           required
+                          disabled={isSubmitting}
                         />
                       </div>
 
@@ -138,10 +187,12 @@ export default function MembershipsSection() {
                       <div className="flex flex-col gap-2">
                         <label className="font-body text-sm uppercase tracking-widest opacity-70">Email</label>
                         <input 
+                          name="email"
                           type="email" 
                           placeholder="you@company.com"
                           className="bg-transparent border-b border-current/30 py-3 font-body text-lg outline-none focus:border-current transition-colors placeholder:text-current/30"
                           required
+                          disabled={isSubmitting}
                         />
                       </div>
 
@@ -149,10 +200,12 @@ export default function MembershipsSection() {
                       <div className="flex flex-col gap-2 md:col-span-2">
                         <label className="font-body text-sm uppercase tracking-widest opacity-70">Phone Number</label>
                         <input 
+                          name="phone"
                           type="tel" 
                           placeholder="+91"
                           className="bg-transparent border-b border-current/30 py-3 font-body text-lg outline-none focus:border-current transition-colors placeholder:text-current/30"
                           required
+                          disabled={isSubmitting}
                         />
                       </div>
 
@@ -160,9 +213,11 @@ export default function MembershipsSection() {
                       <div className="flex flex-col gap-2">
                         <label className="font-body text-sm uppercase tracking-widest opacity-70">Date From</label>
                         <input 
+                          name="dateFrom"
                           type="date" 
                           className="bg-transparent border-b border-current/30 py-3 font-body text-lg outline-none focus:border-current transition-colors text-current opacity-80"
                           required
+                          disabled={isSubmitting}
                         />
                       </div>
 
@@ -170,18 +225,27 @@ export default function MembershipsSection() {
                       <div className="flex flex-col gap-2">
                         <label className="font-body text-sm uppercase tracking-widest opacity-70">Date To</label>
                         <input 
+                          name="dateTo"
                           type="date" 
                           className="bg-transparent border-b border-current/30 py-3 font-body text-lg outline-none focus:border-current transition-colors text-current opacity-80"
+                          disabled={isSubmitting}
                         />
                       </div>
+
+                      {hasError && (
+                        <div className="md:col-span-2 text-red-500 font-body text-sm">
+                          Something went wrong. Please try again.
+                        </div>
+                      )}
 
                       {/* Submit Button */}
                       <div className="md:col-span-2 mt-4">
                         <button 
                           type="submit"
-                          className="w-full md:w-auto px-10 py-4 rounded-full border border-current font-body text-lg font-medium hover:bg-current hover:text-[var(--color-background)] transition-colors"
+                          disabled={isSubmitting}
+                          className="w-full md:w-auto px-10 py-4 rounded-full border border-current font-body text-lg font-medium hover:bg-current hover:text-[var(--color-background)] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                         >
-                          Submit Booking
+                          {isSubmitting ? "Submitting..." : "Submit Booking"}
                         </button>
                       </div>
                     </form>
@@ -190,7 +254,7 @@ export default function MembershipsSection() {
               </div>
             </div>
             
-          </div>
+          </motion.div>
         );
       })}
       

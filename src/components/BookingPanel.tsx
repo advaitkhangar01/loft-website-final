@@ -1,6 +1,44 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function BookingPanel() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMsg("");
+    
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      formType: "booking",
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      requirement: formData.get("requirement"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      
+      if (!res.ok) throw new Error("Failed to submit");
+      router.push("/success");
+    } catch (err) {
+      setErrorMsg("Error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <aside className="absolute top-0 right-0 w-[300px] pb-7 pt-6 px-7 flex flex-col z-50 pointer-events-auto bg-gradient-to-r from-[#81e047] to-[#d8fa72] rounded-bl-[28px] shadow-2xl">
       {/* Decorative sparkle top right */}
@@ -14,20 +52,26 @@ export default function BookingPanel() {
         Ready to claim<br />your room?
       </h2>
 
-      <form className="flex flex-col gap-3.5 font-body" onSubmit={(e) => e.preventDefault()}>
+      <form className="flex flex-col gap-3.5 font-body" onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-3">
           <div className="flex flex-col gap-1">
             <label className="text-black text-[10px] tracking-tight">Full name</label>
             <input 
+              name="name"
               type="text" 
               className="bg-black text-white border-none rounded-[6px] px-2.5 py-2 text-[10px] outline-none"
+              required
+              disabled={isSubmitting}
             />
           </div>
           <div className="flex flex-col gap-1">
             <label className="text-black text-[10px] tracking-tight">Phone Number</label>
             <input 
+              name="phone"
               type="tel" 
               className="bg-black text-white border-none rounded-[6px] px-2.5 py-2 text-[10px] outline-none"
+              required
+              disabled={isSubmitting}
             />
           </div>
         </div>
@@ -36,24 +80,36 @@ export default function BookingPanel() {
           <div className="flex flex-col gap-1">
             <label className="text-black text-[10px] tracking-tight">Email Address</label>
             <input 
+              name="email"
               type="email" 
               className="bg-black text-white border-none rounded-[6px] px-2.5 py-2 text-[10px] outline-none"
+              required
+              disabled={isSubmitting}
             />
           </div>
-          <div className="flex flex-col gap-1 relative">
+          <div className="flex flex-col gap-1">
             <label className="text-black text-[10px] tracking-tight">Requirement</label>
-            <select 
-              className="bg-black text-white border-none rounded-[6px] px-2.5 py-2 text-[10px] outline-none appearance-none"
-            >
-              <option value=""></option>
-              <option value="seat">Seat</option>
-              <option value="tour">Tour</option>
-            </select>
-            {/* Custom Green Chevron */}
-            <div className="absolute right-2.5 top-[23px] pointer-events-none">
-              <svg width="8" height="5" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1 1L5 5L9 1" stroke="#81e047" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            <div className="relative">
+              <select 
+                name="requirement"
+                className="w-full bg-black text-white border-none rounded-[6px] px-2.5 py-2 text-[10px] outline-none appearance-none"
+                required
+                disabled={isSubmitting}
+                defaultValue=""
+              >
+                <option value="" disabled hidden></option>
+                <option value="Day Pass">Day Pass</option>
+                <option value="Private Hot Desk">Private Hot Desk</option>
+                <option value="Private Cabin">Private Cabin</option>
+                <option value="Business Address">Business Address</option>
+                <option value="Tour">Book a Tour</option>
+              </select>
+              {/* Custom Green Chevron */}
+              <div className="absolute right-2.5 top-1/2 -translate-y-1/2 pointer-events-none">
+                <svg width="8" height="5" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1 1L5 5L9 1" stroke="#81e047" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </div>
             </div>
           </div>
         </div>
@@ -61,18 +117,24 @@ export default function BookingPanel() {
         <div className="flex flex-col gap-1">
           <label className="text-black text-[10px] tracking-tight">Message</label>
           <textarea 
+            name="message"
             rows={2}
             className="bg-black text-white border-none rounded-[6px] px-2.5 py-2 text-[10px] outline-none resize-none h-[46px]"
+            disabled={isSubmitting}
           />
         </div>
 
-        <div className="flex justify-center mt-3">
+        {errorMsg && (
+          <div className="text-red-700 text-[10px] text-center">{errorMsg}</div>
+        )}
+
+        <div className="flex justify-center mt-1">
           <button 
-            type="button"
-            onClick={() => {}}
-            className="w-[140px] border-[1.5px] border-black bg-transparent text-black rounded-full py-1.5 text-[11px] hover:bg-black hover:text-[#d8fa72] transition-colors font-body"
+            type="submit"
+            disabled={isSubmitting}
+            className="w-[140px] border-[1.5px] border-black bg-transparent text-black rounded-full py-1.5 text-[11px] hover:bg-black hover:text-[#d8fa72] transition-colors font-body disabled:opacity-50"
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </form>

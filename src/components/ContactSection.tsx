@@ -1,8 +1,45 @@
 "use client";
 
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+
 export default function ContactSection() {
+  const router = useRouter();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setErrorMsg("");
+    
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      formType: "contact",
+      name: formData.get("name"),
+      email: formData.get("email"),
+      phone: formData.get("phone"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      
+      if (!res.ok) throw new Error("Failed to submit");
+      router.push("/success");
+    } catch (err) {
+      setErrorMsg("Something went wrong. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
-    <section className="relative w-full bg-[#0d0d0d] text-white py-24 overflow-hidden">
+    <section id="contact" className="relative w-full bg-[#0d0d0d] text-white py-24 overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
       
@@ -26,22 +63,22 @@ export default function ContactSection() {
           <div className="flex flex-col gap-8 mt-auto">
             <div className="flex flex-col gap-2">
               <span className="font-body text-sm uppercase tracking-widest text-brand-lime">Email Us</span>
-              <a href="mailto:hello@loft.work" className="font-body text-xl hover:text-white/80 transition-colors">
-                hello@loft.work
+              <a href="mailto:contact@loftcoworks.com" className="font-body text-xl hover:text-white/80 transition-colors">
+                contact@loftcoworks.com
               </a>
             </div>
             
             <div className="flex flex-col gap-2">
               <span className="font-body text-sm uppercase tracking-widest text-brand-lime">Call Us</span>
-              <a href="tel:+919876543210" className="font-body text-xl hover:text-white/80 transition-colors">
-                +91 98765 43210
+              <a href="tel:+919168285182" className="font-body text-xl hover:text-white/80 transition-colors">
+                +91 91682 85182
               </a>
             </div>
             
             <div className="flex flex-col gap-2">
               <span className="font-body text-sm uppercase tracking-widest text-brand-lime">Visit Us</span>
               <p className="font-body text-xl max-w-sm text-white/80">
-                IT Park &amp; Abhyankar Nagar,<br />
+                IT Park &amp; Abhyankar Container,<br />
                 Nagpur, Maharashtra
               </p>
             </div>
@@ -51,16 +88,18 @@ export default function ContactSection() {
         {/* Right Column: Contact Form */}
         <div className="flex-1">
           <div className="bg-[#111111]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12">
-            <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
+            <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
               
               {/* Name */}
               <div className="flex flex-col gap-2">
                 <label className="font-body text-sm uppercase tracking-widest text-white/60">Your Name</label>
                 <input 
+                  name="name"
                   type="text" 
                   placeholder="Jane Doe"
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -68,10 +107,12 @@ export default function ContactSection() {
               <div className="flex flex-col gap-2">
                 <label className="font-body text-sm uppercase tracking-widest text-white/60">Email Address</label>
                 <input 
+                  name="email"
                   type="email" 
                   placeholder="jane@example.com"
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -79,9 +120,11 @@ export default function ContactSection() {
               <div className="flex flex-col gap-2">
                 <label className="font-body text-sm uppercase tracking-widest text-white/60">Phone Number</label>
                 <input 
+                  name="phone"
                   type="tel" 
                   placeholder="+91"
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -89,20 +132,27 @@ export default function ContactSection() {
               <div className="flex flex-col gap-2">
                 <label className="font-body text-sm uppercase tracking-widest text-white/60">Message</label>
                 <textarea 
+                  name="message"
                   placeholder="How can we help you?"
                   rows={4}
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20 resize-none"
                   required
+                  disabled={isSubmitting}
                 />
               </div>
+
+              {errorMsg && (
+                <div className="text-red-400 font-body text-sm">{errorMsg}</div>
+              )}
 
               {/* Submit Button */}
               <div className="mt-4">
                 <button 
                   type="submit"
-                  className="w-full rounded-full border-[1.5px] border-brand-lime bg-transparent text-brand-lime px-8 py-4 font-serif text-2xl hover:bg-brand-lime hover:text-black transition-colors"
+                  disabled={isSubmitting}
+                  className="w-full rounded-full border-[1.5px] border-brand-lime bg-transparent text-brand-lime px-8 py-4 font-serif text-2xl hover:bg-brand-lime hover:text-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  Send Message
+                  {isSubmitting ? "Sending..." : "Send Message"}
                 </button>
               </div>
             </form>

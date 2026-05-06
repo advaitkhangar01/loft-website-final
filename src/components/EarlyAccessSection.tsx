@@ -1,5 +1,7 @@
 "use client";
 
+import { motion } from "framer-motion";
+
 export default function EarlyAccessSection() {
   return (
     <section className="relative w-full bg-[#0d0d0d] text-white py-24 overflow-hidden border-t border-white/5">
@@ -9,7 +11,13 @@ export default function EarlyAccessSection() {
       <div className="max-w-7xl w-full mx-auto px-8 relative z-10 flex flex-col items-center">
         
         {/* Top Badge */}
-        <div className="mb-24 flex justify-center w-full relative">
+        <motion.div 
+          className="mb-24 flex justify-center w-full relative"
+          initial={{ opacity: 0, scale: 0.9 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+        >
           <div className="relative inline-flex items-center justify-center px-12 py-8">
             {/* Hand-drawn Oval SVG */}
             <svg 
@@ -39,15 +47,30 @@ export default function EarlyAccessSection() {
               </h2>
             </div>
           </div>
-        </div>
+        </motion.div>
 
         {/* Locations Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 w-full mb-20 relative">
+        <motion.div 
+          className="grid grid-cols-1 md:grid-cols-2 w-full mb-20 relative"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={{
+            hidden: {},
+            visible: { transition: { staggerChildren: 0.2 } }
+          }}
+        >
           {/* Decorative Sparkle Left */}
           <div className="absolute -left-12 top-0 text-white text-2xl hidden md:block">✦</div>
           
           {/* Column 1: IT Park */}
-          <div className="flex flex-col border-b md:border-b-0 md:border-r border-white/10 pb-12 md:pb-0 md:pr-12 lg:pr-24">
+          <motion.div 
+            className="flex flex-col border-b md:border-b-0 md:border-r border-white/10 pb-12 md:pb-0 md:pr-12 lg:pr-24"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+            }}
+          >
             <h3 className="font-serif text-[clamp(48px,6vw,72px)] leading-none mb-8 tracking-[-0.02em]">
               01 : IT Park
             </h3>
@@ -59,12 +82,18 @@ export default function EarlyAccessSection() {
               <p className="text-white/60 font-body text-xl mb-1">50+ Seater | 7 Cabins</p>
               <p className="text-white/60 font-body text-xl">IT Park, Nagpur</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Column 2: Abhyankar Nagar */}
-          <div className="flex flex-col pt-12 md:pt-0 md:pl-12 lg:pl-24">
+          <motion.div 
+            className="flex flex-col pt-12 md:pt-0 md:pl-12 lg:pl-24"
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+            }}
+          >
             <h3 className="font-serif text-[clamp(48px,6vw,72px)] leading-none mb-8 tracking-[-0.02em]">
-              02 : Abhyankar Nagar
+              02 : Abhyankar Container
             </h3>
             <p className="text-brand-lime font-body text-[clamp(20px,2vw,28px)] leading-snug mb-12">
               A quieter, residential pocket with exceptional connectivity. Designed for deep work and deliberate thinking.
@@ -72,10 +101,10 @@ export default function EarlyAccessSection() {
             <div className="mt-auto">
               <p className="text-white/60 font-body text-xl mb-1">Early Access Open</p>
               <p className="text-white/60 font-body text-xl mb-1">150+ Seats | 9 Cabins</p>
-              <p className="text-white/60 font-body text-xl">Abhyankar Nagar, Nagpur</p>
+              <p className="text-white/60 font-body text-xl">Abhyankar Container, Nagpur</p>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
 
         {/* Buttons */}
         <div className="flex flex-wrap justify-center gap-6">
