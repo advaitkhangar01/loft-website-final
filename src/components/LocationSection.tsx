@@ -54,7 +54,7 @@ export default function LocationSection() {
         <div className="group relative w-full lg:w-[36%] aspect-[3.5/4] rounded-[60px] overflow-hidden rotate-[5deg] hover:rotate-0 transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer shadow-2xl z-20">
           <Image 
             src="/assets/locations/abhyankar-container.png" 
-            alt="Abhyankar Container Location"
+            alt="Abhyankar Nagar Location"
             fill
             className="object-cover transition-transform duration-1000 group-hover:scale-110"
           />
@@ -63,7 +63,7 @@ export default function LocationSection() {
 
           {/* Glass Caption */}
           <div className="absolute bottom-10 left-1/2 -translate-x-1/2 bg-[#1a1a1a]/60 backdrop-blur-2xl border border-white/20 px-10 py-3 rounded-full shadow-[0_10px_30px_rgba(0,0,0,0.5)]">
-            <span className="font-serif text-white text-[22px] whitespace-nowrap">Abhyankar Container</span>
+            <span className="font-serif text-white text-[22px] whitespace-nowrap">Abhyankar Nagar</span>
           </div>
         </div>
 

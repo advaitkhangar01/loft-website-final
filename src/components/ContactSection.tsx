@@ -78,7 +78,7 @@ export default function ContactSection() {
             <div className="flex flex-col gap-2">
               <span className="font-body text-sm uppercase tracking-widest text-brand-lime">Visit Us</span>
               <p className="font-body text-xl max-w-sm text-white/80">
-                IT Park &amp; Abhyankar Container,<br />
+                IT Park &amp; Abhyankar Nagar,<br />
                 Nagpur, Maharashtra
               </p>
             </div>

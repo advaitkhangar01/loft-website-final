@@ -93,7 +93,7 @@ export default function EarlyAccessSection() {
             }}
           >
             <h3 className="font-serif text-[clamp(48px,6vw,72px)] leading-none mb-8 tracking-[-0.02em]">
-              02 : Abhyankar Container
+              02 : Abhyankar Nagar
             </h3>
             <p className="text-brand-lime font-body text-[clamp(20px,2vw,28px)] leading-snug mb-12">
               A quieter, residential pocket with exceptional connectivity. Designed for deep work and deliberate thinking.
@@ -101,7 +101,7 @@ export default function EarlyAccessSection() {
             <div className="mt-auto">
               <p className="text-white/60 font-body text-xl mb-1">Early Access Open</p>
               <p className="text-white/60 font-body text-xl mb-1">150+ Seats | 9 Cabins</p>
-              <p className="text-white/60 font-body text-xl">Abhyankar Container, Nagpur</p>
+              <p className="text-white/60 font-body text-xl">Abhyankar Nagar, Nagpur</p>
             </div>
           </motion.div>
         </motion.div>

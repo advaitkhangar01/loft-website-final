@@ -28,7 +28,7 @@ export default function FooterSection() {
               Built for those moving fast. With the infrastructure to match.
             </p>
             <div className="mt-4">
-              <p className="font-body text-white/80">IT Park &amp; Abhyankar Container</p>
+              <p className="font-body text-white/80">IT Park &amp; Abhyankar Nagar</p>
               <p className="font-body text-white/80">Nagpur, Maharashtra</p>
             </div>
           </div>
