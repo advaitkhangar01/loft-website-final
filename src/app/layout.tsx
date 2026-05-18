@@ -7,13 +7,13 @@ export const metadata: Metadata = {
   description: "LOFT Coworks - Premium Coworking Space",
   icons: {
     icon: [
-      { url: "/favicon.png", sizes: "32x32" },
-      { url: "/favicon.png", sizes: "16x16" },
+      { url: "/favicon/favicon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/favicon/favicon.svg", type: "image/svg+xml" },
     ],
-    apple: "/apple-touch-icon.png",
-    shortcut: "/favicon.png",
+    apple: "/favicon/apple-touch-icon.png",
+    shortcut: "/favicon/favicon.ico",
   },
-  manifest: "/site.webmanifest",
+  manifest: "/favicon/site.webmanifest",
 };
 
 export default function RootLayout({
