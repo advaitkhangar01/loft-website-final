@@ -24,6 +24,8 @@ export async function POST(request: Request) {
         user: process.env.SMTP_USER || '',
         pass: process.env.SMTP_PASS || '',
       },
+      connectionTimeout: 10000, // 10 seconds timeout limit
+      greetingTimeout: 10000,   // 10 seconds greeting limit
     });
 
     // Determine the subject line based on the form type
