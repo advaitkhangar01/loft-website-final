@@ -45,7 +45,7 @@ export default function HeroSection() {
         <div className="text-center relative flex flex-col items-center">
           <AnimatedText 
             text="A room for people who"
-            className="text-foreground font-heading font-medium tracking-tight text-[clamp(36px,5vw,52px)] leading-tight justify-center"
+            className="text-foreground font-body font-medium tracking-tight text-[clamp(36px,5vw,52px)] leading-tight justify-center"
             delay={0.2}
           />
           

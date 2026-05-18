@@ -64,7 +64,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section id="spaces" className="bg-black text-white py-32 px-6 flex flex-col items-center overflow-hidden">
+    <section id="spaces" className="bg-black text-white pt-32 pb-16 px-6 flex flex-col items-center overflow-hidden">
       {/* Header */}
       <div className="relative mb-24 text-center">
         {/* Sparkles */}
@@ -92,7 +92,7 @@ export default function FeaturesSection() {
           hidden: { opacity: 0 },
           visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
         }}
-        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 w-full max-w-[1400px] mb-48"
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 w-full max-w-[1400px] mb-20"
       >
         {features.map((feature, index) => (
           <motion.div 
