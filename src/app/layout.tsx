@@ -28,6 +28,7 @@ export default function RootLayout({
         <link rel="preload" href="/fonts/HelveticaNowDisplay.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/HelveticaNowDisplayBold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
         <link rel="preload" href="/fonts/TimesNewRomanMTCondensed.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+        <link rel="preload" href="/fonts/TimesNewRomanMTCondensedItalic.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
       <body className="min-h-full flex flex-col font-body">
         <div className="flex-grow">

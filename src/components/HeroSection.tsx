@@ -2,6 +2,7 @@
 
 import Header from "./Header";
 import BookingPanel from "./BookingPanel";
+import AnimatedText from "./AnimatedText";
 import { motion } from "framer-motion";
 
 export default function HeroSection() {
@@ -42,12 +43,11 @@ export default function HeroSection() {
         
         {/* Text Section */}
         <div className="text-center relative flex flex-col items-center">
-          <motion.h1 
-            variants={itemVariants}
-            className="text-foreground font-heading font-medium tracking-tight text-[clamp(36px,5vw,52px)] leading-tight"
-          >
-            A room for people who
-          </motion.h1>
+          <AnimatedText 
+            text="A room for people who"
+            className="text-foreground font-heading font-medium tracking-tight text-[clamp(36px,5vw,52px)] leading-tight justify-center"
+            delay={0.2}
+          />
           
           <div className="relative flex items-center justify-center mt-2">
             {/* Sparkles next to "build" */}

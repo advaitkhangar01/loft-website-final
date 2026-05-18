@@ -1,6 +1,8 @@
 "use client";
 
 import React from "react";
+import { motion } from "framer-motion";
+import AnimatedText from "./AnimatedText";
 
 const features = [
   {
@@ -69,19 +71,36 @@ export default function FeaturesSection() {
         <div className="absolute -left-16 top-0 text-white text-2xl hidden md:block opacity-60">✦</div>
         <div className="absolute -right-16 top-10 text-white text-xl hidden md:block opacity-60">✦</div>
         
-        <h2 className="font-heading font-medium text-[32px] md:text-[42px] leading-tight mb-2">
-          Built around
-        </h2>
-        <h3 className="font-serif text-[clamp(60px,8vw,100px)] leading-[0.9] tracking-tight">
-          how you work
-        </h3>
+        <AnimatedText 
+          text="Built around" 
+          className="font-heading font-medium text-[32px] md:text-[42px] leading-tight mb-2 justify-center" 
+        />
+        <AnimatedText 
+          text="how you work" 
+          className="font-serif text-[clamp(60px,8vw,100px)] leading-[0.9] tracking-tight justify-center" 
+          style={{ fontStyle: "normal" }}
+          delay={0.2} 
+        />
       </div>
 
       {/* Features Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 w-full max-w-[1400px] mb-48">
+      <motion.div 
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-10%" }}
+        variants={{
+          hidden: { opacity: 0 },
+          visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+        }}
+        className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 lg:gap-5 w-full max-w-[1400px] mb-48"
+      >
         {features.map((feature, index) => (
-          <div 
+          <motion.div 
             key={index}
+            variants={{
+              hidden: { opacity: 0, y: 30 },
+              visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] } }
+            }}
             className="group relative rounded-[28px] p-[1.5px] bg-gradient-to-b from-white/40 to-[#9ef01a]"
           >
             <div className="bg-black w-full h-full rounded-[calc(28px-1.5px)] p-6 lg:p-7 flex flex-col items-start">
@@ -91,7 +110,10 @@ export default function FeaturesSection() {
               </div>
               
               {/* Title */}
-              <h4 className="font-serif text-transparent bg-clip-text bg-gradient-to-b from-[#faffc2] to-[#9ef01a] text-[28px] lg:text-[32px] leading-none mb-3 pr-2">
+              <h4 
+                className="font-serif text-transparent bg-clip-text bg-gradient-to-b from-[#faffc2] to-[#9ef01a] text-[28px] lg:text-[32px] leading-none mb-3 pr-2"
+                style={{ fontStyle: "normal" }}
+              >
                 {feature.title}
               </h4>
               
@@ -100,22 +122,36 @@ export default function FeaturesSection() {
                 {feature.description}
               </p>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
 
       {/* Quote Section */}
-      <div className="relative text-center max-w-4xl px-4">
-        {/* Large Quotes */}
-        <span className="absolute -top-12 -left-8 md:-left-20 text-brand-lime text-[120px] md:text-[180px] font-serif leading-none opacity-20 pointer-events-none">
+      <div className="flex items-center justify-center max-w-5xl px-4 gap-4 md:gap-8">
+        {/* Left Quote */}
+        <span 
+          className="text-brand-lime text-[100px] md:text-[160px] font-serif leading-none select-none self-start -mt-4 md:-mt-8"
+          style={{ fontStyle: "normal" }}
+        >
           “
         </span>
         
-        <h3 className="font-serif text-[clamp(40px,6vw,80px)] leading-[1.1] tracking-tight relative z-10">
-          They said it <span className="text-brand-lime">better</span> than us.
-        </h3>
+        <motion.h3 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="font-serif text-white text-[clamp(40px,6vw,80px)] leading-[1.1] tracking-tight text-center"
+          style={{ fontStyle: "normal" }}
+        >
+          They said it<br />better than us.
+        </motion.h3>
 
-        <span className="absolute -bottom-24 -right-8 md:-right-20 text-brand-lime text-[120px] md:text-[180px] font-serif leading-none opacity-20 pointer-events-none">
+        {/* Right Quote */}
+        <span 
+          className="text-brand-lime text-[100px] md:text-[160px] font-serif leading-none select-none self-end -mb-4 md:-mb-8"
+          style={{ fontStyle: "normal" }}
+        >
           ”
         </span>
       </div>

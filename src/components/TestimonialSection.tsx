@@ -82,8 +82,12 @@ export default function TestimonialSection() {
 
       {/* Interactive Card Stack */}
       <div 
-        className="relative z-20 cursor-pointer group"
+        className="relative z-20 cursor-pointer group focus-visible:outline-none"
         onClick={nextTestimonial}
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") nextTestimonial(); }}
+        tabIndex={0}
+        role="button"
+        aria-label="Next testimonial"
         style={{ width: "280px", height: "420px", marginBottom: "60px", perspective: "1000px" }}
       >
         <motion.div
@@ -143,6 +147,8 @@ export default function TestimonialSection() {
                     src={testimonial.image}
                     alt={testimonial.author}
                     fill
+                    sizes="280px"
+                    priority={isFront}
                     className={`object-cover transition-all duration-700 ${isFront ? "grayscale-0" : "grayscale opacity-40 blur-[1px]"}`}
                   />
                   
@@ -176,14 +182,7 @@ export default function TestimonialSection() {
             className="flex flex-col items-center"
           >
             <p
-              className="text-white/95 mb-8"
-              style={{
-                fontFamily: "'Helvetica Now Text', 'Inter', sans-serif",
-                fontSize: "clamp(20px, 2.5vw, 28px)",
-                lineHeight: 1.35,
-                fontWeight: 500,
-                letterSpacing: "-0.03em",
-              }}
+              className="text-white/95 mb-8 font-body font-medium leading-[1.35] tracking-[-0.03em] text-[clamp(20px,2.5vw,28px)]"
             >
               "{testimonials[index].quote}"
             </p>

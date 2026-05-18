@@ -1,18 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
+import AnimatedText from "./AnimatedText";
 
 export default function EarlyAccessSection() {
   return (
-    <section className="relative w-full bg-[#0d0d0d] text-white py-24 overflow-hidden border-t border-white/5">
+    <section className="relative w-full bg-[#0d0d0d] text-white py-16 overflow-hidden border-t border-white/5">
       {/* Background Grid */}
-      <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid opacity-80 pointer-events-none" />
 
       <div className="max-w-7xl w-full mx-auto px-8 relative z-10 flex flex-col items-center">
         
         {/* Top Badge */}
         <motion.div 
-          className="mb-24 flex justify-center w-full relative"
+          className="mb-16 flex justify-center w-full relative"
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
           viewport={{ once: true, margin: "-10%" }}
@@ -21,37 +22,42 @@ export default function EarlyAccessSection() {
           <div className="relative inline-flex items-center justify-center px-12 py-8">
             {/* Hand-drawn Oval SVG */}
             <svg 
-              className="absolute inset-0 w-full h-full text-brand-lime" 
+              className="absolute inset-0 w-full h-full text-brand-lime scale-105 rotate-[-3.5deg]" 
               viewBox="0 0 400 120" 
               preserveAspectRatio="none"
               fill="none"
             >
               <path 
-                d="M200 10C300 10 390 30 390 60C390 90 300 110 200 110C100 110 10 90 10 60C10 30 100 10 200 10Z" 
+                d="M 20,60 C 20,25 100,10 200,10 C 300,10 380,25 380,60 C 380,95 300,110 200,110 C 100,110 30,95 15,65 C 8,50 45,28 90,20" 
                 stroke="currentColor" 
-                strokeWidth="2" 
+                strokeWidth="2.5" 
+                strokeLinecap="round"
                 className="opacity-80"
               />
               <path 
-                d="M180 15C290 15 380 35 380 60C380 85 290 105 180 105C80 105 20 85 20 60C20 35 80 15 180 15Z" 
+                d="M 35,55 C 35,32 105,16 190,16 C 275,16 365,32 365,55 C 365,78 275,98 190,98 C 105,98 45,78 30,60 C 22,50 50,35 85,28" 
                 stroke="currentColor" 
                 strokeWidth="2"
+                strokeLinecap="round"
               />
             </svg>
             <div className="text-center relative z-10">
-              <h2 className="font-serif text-[clamp(40px,5vw,56px)] leading-tight tracking-tight">
-                Limited seats.
-              </h2>
-              <h2 className="font-serif text-[clamp(40px,5vw,56px)] leading-tight tracking-tight">
-                Early access open.
-              </h2>
+              <AnimatedText 
+                text="Limited seats."
+                className="font-serif not-italic text-[clamp(40px,5vw,56px)] leading-tight tracking-tight justify-center"
+              />
+              <AnimatedText 
+                text="Early access open."
+                className="font-serif not-italic text-[clamp(40px,5vw,56px)] leading-tight tracking-tight justify-center"
+                delay={0.2}
+              />
             </div>
           </div>
         </motion.div>
 
         {/* Locations Columns */}
         <motion.div 
-          className="grid grid-cols-1 md:grid-cols-2 w-full mb-20 relative"
+          className="grid grid-cols-1 md:grid-cols-2 w-full mb-12 relative"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-10%" }}
@@ -61,7 +67,7 @@ export default function EarlyAccessSection() {
           }}
         >
           {/* Decorative Sparkle Left */}
-          <div className="absolute -left-12 top-0 text-white text-2xl hidden md:block">✦</div>
+          <div className="absolute -left-16 top-0 text-white text-2xl hidden md:block">✦</div>
           
           {/* Column 1: IT Park */}
           <motion.div 
@@ -71,7 +77,7 @@ export default function EarlyAccessSection() {
               visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
             }}
           >
-            <h3 className="font-serif text-[clamp(48px,6vw,72px)] leading-none mb-8 tracking-[-0.02em]">
+            <h3 className="font-serif not-italic text-[clamp(48px,6vw,72px)] leading-none mb-8 tracking-[-0.02em]">
               01 : IT Park
             </h3>
             <p className="text-brand-lime font-body text-[clamp(20px,2vw,28px)] leading-snug mb-12">
@@ -92,7 +98,7 @@ export default function EarlyAccessSection() {
               visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
             }}
           >
-            <h3 className="font-serif text-[clamp(48px,6vw,72px)] leading-none mb-8 tracking-[-0.02em]">
+            <h3 className="font-serif not-italic text-[clamp(48px,6vw,72px)] leading-none mb-8 tracking-[-0.02em]">
               02 : Abhyankar Nagar
             </h3>
             <p className="text-brand-lime font-body text-[clamp(20px,2vw,28px)] leading-snug mb-12">
@@ -107,14 +113,20 @@ export default function EarlyAccessSection() {
         </motion.div>
 
         {/* Buttons */}
-        <div className="flex flex-wrap justify-center gap-6">
-          <button className="rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-brand-lime px-10 py-4 font-serif text-2xl hover:bg-white/5 transition-colors">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="flex flex-wrap justify-center gap-6"
+        >
+          <button className="rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-brand-lime px-10 py-4 font-serif not-italic text-2xl hover:bg-white/5 transition-colors cursor-pointer">
             Book a seat
           </button>
-          <button className="rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white px-10 py-4 font-serif text-2xl hover:bg-white/5 transition-colors">
+          <button className="rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-white px-10 py-4 font-serif not-italic text-2xl hover:bg-white/5 transition-colors cursor-pointer">
             Book a tour
           </button>
-        </div>
+        </motion.div>
 
         {/* Decorative Sparkle Right */}
         <div className="absolute right-0 bottom-0 text-white text-3xl hidden md:block">✦</div>

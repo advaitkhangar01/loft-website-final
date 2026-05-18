@@ -1,25 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import SuccessModal from "./SuccessModal";
 
 export default function BookingPanel() {
-  const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [successRequirement, setSuccessRequirement] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     setErrorMsg("");
     
-    const formData = new FormData(e.currentTarget);
+    const formElement = e.currentTarget;
+    const formData = new FormData(formElement);
+    const requirementVal = formData.get("requirement") as string;
     const data = {
       formType: "booking",
       name: formData.get("name"),
       email: formData.get("email"),
       phone: formData.get("phone"),
-      requirement: formData.get("requirement"),
+      requirement: requirementVal,
       message: formData.get("message"),
     };
 
@@ -31,7 +34,9 @@ export default function BookingPanel() {
       });
       
       if (!res.ok) throw new Error("Failed to submit");
-      router.push("/success");
+      setSuccessRequirement(requirementVal);
+      setShowSuccess(true);
+      formElement.reset();
     } catch (err) {
       setErrorMsg("Error. Please try again.");
     } finally {
@@ -138,6 +143,14 @@ export default function BookingPanel() {
           </button>
         </div>
       </form>
+
+      {/* Success Popup Modal */}
+      <SuccessModal 
+        isOpen={showSuccess} 
+        onClose={() => setShowSuccess(false)} 
+        title="Reservation Received!"
+        message={`Thank you for your interest in ${successRequirement || "LOFT Co-working"}. Our team is reviewing your details and will get back to you shortly.`}
+      />
     </aside>
   );
 }

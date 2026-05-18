@@ -57,7 +57,7 @@ export async function POST(request: Request) {
     // Define email options
     const mailOptions = {
       from: process.env.SMTP_USER || 'no-reply@loftcoworks.com', // sender address
-      to: 'contact@loftcoworks.com', // list of receivers
+      to: 'members@loftcoworks.com', // list of receivers
       replyTo: email,
       subject: subject,
       html: htmlContent,
@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     // so we can gracefully fallback if env vars are missing, or log the email to console for debugging
     if (!process.env.SMTP_HOST || !process.env.SMTP_USER) {
       console.log('--- SMTP Credentials Missing ---');
-      console.log('Would have sent email to contact@loftcoworks.com with content:');
+      console.log('Would have sent email to members@loftcoworks.com with content:');
       console.log(subject);
       console.log(htmlContent);
       console.log('---------------------------------');

@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 export default function VideoShowcaseSection() {
   return (
@@ -16,7 +17,13 @@ export default function VideoShowcaseSection() {
       />
       
       {/* Video Card Wrapper */}
-      <div className="relative z-10 w-full max-w-[860px] aspect-video group cursor-pointer">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className="relative z-10 w-full max-w-[860px] aspect-video group cursor-pointer"
+      >
         {/* The Card */}
         <div 
           className="relative w-full h-full rounded-[48px] border-[24px] border-[#9ef01a] overflow-hidden shadow-[0_0_60px_rgba(158,240,26,0.25),0_0_120px_20px_rgba(158,240,26,0.10)]"
@@ -45,10 +52,17 @@ export default function VideoShowcaseSection() {
             </div>
           </div>
         </div>
-      </div>
+
+      </motion.div>
 
       {/* CTA Pill Button */}
-      <div className="mt-12 z-10">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.3 }}
+        className="mt-12 z-10"
+      >
         <button 
           className="px-10 py-3.5 rounded-full bg-[#1a1a1a] border border-white/15 shadow-[0_2px_20px_rgba(0,0,0,0.4)] transition-all duration-300 hover:bg-[#252525] hover:border-white/25 active:scale-95"
         >
@@ -56,7 +70,8 @@ export default function VideoShowcaseSection() {
             Try LOFT for a day
           </span>
         </button>
-      </div>
+
+      </motion.div>
 
       {/* Decorative Sparkle */}
       <div className="absolute bottom-[12%] right-[8%] text-white/60 text-xl pointer-events-none select-none">

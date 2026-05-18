@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import SuccessModal from "./SuccessModal";
 
 export default function MembershipsSection() {
-  const router = useRouter();
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [submittingIndex, setSubmittingIndex] = useState<number | null>(null);
   const [errorIndex, setErrorIndex] = useState<number | null>(null);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [successPlan, setSuccessPlan] = useState("");
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -23,7 +24,8 @@ export default function MembershipsSection() {
     setSubmittingIndex(index);
     setErrorIndex(null);
     
-    const formData = new FormData(e.currentTarget);
+    const formElement = e.currentTarget;
+    const formData = new FormData(formElement);
     const data = {
       formType: "membership",
       membershipType: title,
@@ -42,7 +44,9 @@ export default function MembershipsSection() {
       });
       
       if (!res.ok) throw new Error("Failed to submit");
-      router.push("/success");
+      setSuccessPlan(title);
+      setShowSuccess(true);
+      formElement.reset();
     } catch (err) {
       setErrorIndex(index);
     } finally {
@@ -260,6 +264,14 @@ export default function MembershipsSection() {
       
       {/* Bottom Grid Decorator */}
       <div className="w-full h-[200px] bg-[#0d0d0d] bg-grid opacity-50 border-t border-white/5" />
+
+      {/* Success Popup Modal */}
+      <SuccessModal 
+        isOpen={showSuccess} 
+        onClose={() => setShowSuccess(false)} 
+        title="Booking Request Received!"
+        message={`Thank you for requesting a booking for the ${successPlan}. Our team is reviewing your details and will get back to you shortly.`}
+      />
     </section>
   );
 }

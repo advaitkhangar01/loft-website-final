@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { motion } from "framer-motion";
+import AnimatedText from "./AnimatedText";
 import { stories } from "@/data/stories";
 
 export default function StoriesSection() {
@@ -20,12 +22,15 @@ export default function StoriesSection() {
         {/* Header Block */}
         <div className="flex flex-col md:flex-row justify-between items-start mb-20 gap-8">
           <div className="flex flex-col">
-            <h2 className="font-heading text-5xl md:text-7xl font-bold text-black tracking-tight leading-none mb-2">
-              Stories
-            </h2>
-            <p className="font-serif text-6xl md:text-8xl text-[#5CB338] leading-none">
-              From the Room
-            </p>
+            <AnimatedText 
+              text="Stories"
+              className="font-heading text-5xl md:text-7xl font-bold text-black tracking-tight leading-none mb-2"
+            />
+            <AnimatedText 
+              text="From the Room"
+              className="font-serif text-6xl md:text-8xl text-[#5CB338] leading-none"
+              delay={0.2}
+            />
           </div>
           
           <div className="max-w-xl">
@@ -57,9 +62,25 @@ export default function StoriesSection() {
         </div>
 
         {/* Stories Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-10%" }}
+          variants={{
+            hidden: { opacity: 0 },
+            visible: { opacity: 1, transition: { staggerChildren: 0.15 } }
+          }}
+          className="grid grid-cols-1 md:grid-cols-3 gap-12"
+        >
           {stories.map((story) => (
-            <Link key={story.id} href={`/stories/${story.slug}`} className="flex flex-col group cursor-pointer">
+            <motion.div 
+              key={story.id}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+              }}
+            >
+              <Link href={`/stories/${story.slug}`} className="flex flex-col group cursor-pointer">
               <div className="relative aspect-[4/3] rounded-[2.5rem] overflow-hidden mb-6">
                 <Image 
                   src={story.image} 
@@ -72,8 +93,9 @@ export default function StoriesSection() {
                 {story.title}
               </h3>
             </Link>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );
