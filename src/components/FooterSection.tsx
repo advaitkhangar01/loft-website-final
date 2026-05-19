@@ -16,9 +16,9 @@ export default function FooterSection() {
           
           {/* Brand & Address */}
           <div className="flex flex-col gap-6">
-            <Link href="/" className="inline-flex items-center relative w-12 h-12">
+            <Link href="/" className="inline-flex items-center relative w-[160px] h-[55px]">
               <Image 
-                src="/favicon.png" 
+                src="/logo.png" 
                 alt="LOFT Logo" 
                 fill
                 className="object-contain object-left"

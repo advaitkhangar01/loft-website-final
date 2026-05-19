@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
+import NewsletterForm from "@/components/NewsletterForm";
 
 // Generate static params for the dynamic routes
 export function generateStaticParams() {
@@ -114,20 +115,12 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
             </p>
           </div>
 
-          <div className="flex justify-center mb-24">
-            <div className="bg-white rounded-full shadow-[0_20px_60px_rgba(0,0,0,0.06)] flex items-center p-2 w-full max-w-2xl group border border-gray-100 focus-within:border-[#5CB338]/30 transition-all">
-              <input 
-                type="email" 
-                placeholder="your email" 
-                className="bg-transparent flex-grow px-8 font-body text-black/60 outline-none"
-              />
-              <button 
-                type="button"
-                className="bg-[#1a1a1a] text-white px-10 py-4 rounded-full font-body font-semibold hover:bg-black hover:scale-[1.02] active:scale-[0.98] transition-all"
-              >
-                subscribe
-              </button>
-            </div>
+          <div className="mb-24 flex justify-center w-full">
+            <NewsletterForm 
+              buttonText="subscribe" 
+              shadowClass="shadow-[0_20px_60px_rgba(0,0,0,0.06)]"
+              buttonPaddingClass="py-4"
+            />
           </div>
         </div>
 

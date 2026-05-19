@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import AnimatedText from "./AnimatedText";
 import { stories } from "@/data/stories";
+import NewsletterForm from "./NewsletterForm";
 
 export default function StoriesSection() {
   return (
@@ -24,7 +25,7 @@ export default function StoriesSection() {
           <div className="flex flex-col">
             <AnimatedText 
               text="Stories"
-              className="font-heading text-5xl md:text-7xl font-bold text-black tracking-tight leading-none mb-2"
+              className="font-body text-5xl md:text-7xl font-normal text-black tracking-tight leading-none mb-2"
             />
             <AnimatedText 
               text="From the Room"
@@ -44,21 +45,8 @@ export default function StoriesSection() {
         </div>
 
         {/* Newsletter Subscription Pill */}
-        <div className="flex justify-center mb-24">
-          <div className="bg-white rounded-full shadow-[0_10px_50px_rgba(0,0,0,0.08)] flex items-center p-2 w-full max-w-2xl group border border-gray-50">
-            <input 
-              type="email" 
-              placeholder="your email" 
-              className="bg-transparent flex-grow px-8 font-body text-black/60 outline-none"
-              readOnly
-            />
-            <button 
-              type="button"
-              className="bg-[#1a1a1a] text-white px-10 py-3 rounded-full font-body font-semibold hover:bg-black transition-colors"
-            >
-              submit
-            </button>
-          </div>
+        <div className="mb-24 flex justify-center w-full">
+          <NewsletterForm buttonText="submit" />
         </div>
 
         {/* Stories Grid */}

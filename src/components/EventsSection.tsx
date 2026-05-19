@@ -14,7 +14,7 @@ export default function EventsSection() {
         }}
       />
       
-      <div className="max-w-7xl w-full mx-auto px-8 py-24 flex flex-col md:flex-row gap-16 md:gap-24 relative z-10">
+      <div className="max-w-[1600px] w-full mx-auto px-6 md:px-16 py-24 flex flex-col md:flex-row justify-between gap-16 md:gap-24 relative z-10">
         
         {/* Left Column: Events List */}
         <motion.div 
@@ -73,11 +73,12 @@ export default function EventsSection() {
         <div className="flex-1 flex flex-col justify-center text-right items-end">
           <AnimatedText 
             text="Loft After-Hours"
-            className="font-heading text-[clamp(40px,5vw,64px)] tracking-tight leading-none mb-2 font-medium justify-end w-full"
+            className="font-body text-[clamp(36px,4.5vw,56px)] tracking-tight leading-none mb-2 font-normal justify-end w-full"
           />
           <AnimatedText 
             text="Something always happening"
-            className="font-serif text-brand-lime text-[clamp(48px,6vw,80px)] leading-none mb-8 tracking-[-0.02em] justify-end w-full"
+            className="font-serif text-[#5CB338] text-[clamp(40px,5.2vw,76px)] leading-none mb-6 tracking-[-0.04em] justify-end w-full whitespace-nowrap flex-nowrap"
+            style={{ fontStyle: "normal", flexWrap: "nowrap" }}
             delay={0.2}
           />
           
@@ -86,23 +87,26 @@ export default function EventsSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="font-body text-xl md:text-2xl leading-relaxed max-w-[600px] text-right mb-10"
+            className="font-body text-base md:text-lg text-black/85 leading-relaxed max-w-[550px] text-right mb-8"
           >
             We host regular sessions for the people inside LOFT — not webinars, not generic panels. Real conversations between people actually building things.
           </motion.p>
           
-          <motion.button 
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.5 }}
-            className="flex items-center gap-4 bg-[#1a1a1a] text-white rounded-full px-8 py-4 font-body text-lg hover:bg-black transition-colors"
+            className="flex items-center justify-end gap-4"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-            get invited
-          </motion.button>
+            <span className="text-2xl font-light text-black select-none">↳</span>
+            <button 
+              type="button"
+              className="bg-[#1a1a1a] text-white rounded-full px-8 py-3.5 font-body text-base font-semibold hover:bg-black transition-colors"
+            >
+              get invited
+            </button>
+          </motion.div>
         </div>
         
       </div>

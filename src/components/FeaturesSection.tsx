@@ -64,7 +64,7 @@ const features = [
 
 export default function FeaturesSection() {
   return (
-    <section id="spaces" className="bg-black text-white pt-32 pb-16 px-6 flex flex-col items-center overflow-hidden">
+    <section id="spaces" className="bg-black text-white pt-32 pb-4 md:pb-6 px-6 flex flex-col items-center overflow-hidden">
       {/* Header */}
       <div className="relative mb-24 text-center">
         {/* Sparkles */}
@@ -73,7 +73,7 @@ export default function FeaturesSection() {
         
         <AnimatedText 
           text="Built around" 
-          className="font-heading font-medium text-[32px] md:text-[42px] leading-tight mb-2 justify-center" 
+          className="font-body font-normal text-[32px] md:text-[42px] leading-tight -mb-1 md:-mb-2 justify-center" 
         />
         <AnimatedText 
           text="how you work" 

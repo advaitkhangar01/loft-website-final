@@ -82,6 +82,15 @@
     font-family: var(--font-heading);
     font-weight: bold;
   }
+
+  .dark-map {
+    filter: invert(90%) hue-rotate(180deg) grayscale(60%) contrast(90%);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  
+  .dark-map:hover {
+    filter: grayscale(0%) invert(0%) contrast(100%);
+  }
 }
 
 body {

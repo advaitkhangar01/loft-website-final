@@ -43,7 +43,7 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative w-full bg-[#0d0d0d] text-white py-24 overflow-hidden">
+    <section id="contact" className="relative w-full bg-[#0d0d0d] text-white py-16 overflow-hidden">
       {/* Background Grid */}
       <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
       
@@ -52,7 +52,7 @@ export default function ContactSection() {
         <div className="w-full h-full bg-radial-glow" />
       </div>
 
-      <div className="max-w-7xl w-full mx-auto px-8 relative z-10 flex flex-col lg:flex-row gap-16 lg:gap-24">
+      <div className="max-w-7xl w-full mx-auto px-8 relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-16">
         
         {/* Left Column: Copy & Details */}
         <div className="flex-[1.2] flex flex-col justify-center">
@@ -66,7 +66,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="font-body text-[clamp(20px,2vw,28px)] leading-snug mb-12 text-white/90 max-w-xl"
+            className="font-body text-[clamp(20px,2vw,28px)] leading-snug mb-6 text-white/90 max-w-xl"
           >
             Whether you're looking for a private cabin, a dedicated desk, or just a place to host your next event — let's talk.
           </motion.p>
@@ -76,7 +76,7 @@ export default function ContactSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex flex-col gap-8 mt-auto"
+            className="flex flex-col gap-5 mt-auto"
           >
             <div className="flex flex-col gap-2">
               <span className="font-body text-sm uppercase tracking-widest text-brand-lime">Email Us</span>
@@ -99,6 +99,43 @@ export default function ContactSection() {
                 Nagpur, Maharashtra
               </p>
             </div>
+
+            {/* Map Location Cards with Squircle Shape */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
+              {/* Location 1: IT Park */}
+              <div className="group relative bg-[#161616]/40 backdrop-blur-sm border border-white/5 rounded-[24px] p-3 flex flex-col gap-3 hover:border-brand-lime/20 transition-all duration-500 shadow-lg">
+                <div className="flex items-center justify-between px-2">
+                  <span className="font-body text-sm font-semibold uppercase tracking-wider text-white/80 group-hover:text-brand-lime transition-colors">IT Park Office</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-lime shadow-[0_0_10px_rgba(159,240,26,0.5)] animate-pulse" />
+                </div>
+                <div className="w-full aspect-[16/10] rounded-[16px] overflow-hidden border border-white/5 relative">
+                  <iframe
+                    title="LOFT IT Park Map"
+                    src="https://maps.google.com/maps?q=IT%20Park,%20Nagpur,%20Maharashtra&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                    className="w-full h-full border-0 dark-map"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+
+              {/* Location 2: Abhyankar Nagar */}
+              <div className="group relative bg-[#161616]/40 backdrop-blur-sm border border-white/5 rounded-[24px] p-3 flex flex-col gap-3 hover:border-brand-lime/20 transition-all duration-500 shadow-lg">
+                <div className="flex items-center justify-between px-2">
+                  <span className="font-body text-sm font-semibold uppercase tracking-wider text-white/80 group-hover:text-brand-lime transition-colors">Abhyankar Nagar</span>
+                  <span className="w-2.5 h-2.5 rounded-full bg-brand-lime shadow-[0_0_10px_rgba(159,240,26,0.5)] animate-pulse" />
+                </div>
+                <div className="w-full aspect-[16/10] rounded-[16px] overflow-hidden border border-white/5 relative">
+                  <iframe
+                    title="LOFT Abhyankar Nagar Map"
+                    src="https://maps.google.com/maps?q=Abhyankar%20Nagar,%20Nagpur,%20Maharashtra&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                    className="w-full h-full border-0 dark-map"
+                    allowFullScreen
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
 
@@ -108,10 +145,10 @@ export default function ContactSection() {
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="flex-1"
+          className="flex-1 flex flex-col"
         >
-          <div className="bg-[#111111]/80 backdrop-blur-sm border border-white/10 rounded-2xl p-8 md:p-12">
-            <form className="flex flex-col gap-8" onSubmit={handleSubmit}>
+          <div className="bg-[#111111]/80 backdrop-blur-sm border border-white/10 rounded-[24px] p-6 md:p-8 flex-1 flex flex-col h-full justify-between">
+            <form className="flex flex-col gap-6 flex-1 h-full" onSubmit={handleSubmit}>
               
               {/* Name */}
               <div className="flex flex-col gap-2">
@@ -152,13 +189,12 @@ export default function ContactSection() {
               </div>
 
               {/* Message */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 flex-1 min-h-[100px]">
                 <label className="font-body text-sm uppercase tracking-widest text-white/60">Message</label>
                 <textarea 
                   name="message"
                   placeholder="How can we help you?"
-                  rows={4}
-                  className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20 resize-none"
+                  className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20 resize-none flex-1 min-h-[60px]"
                   required
                   disabled={isSubmitting}
                 />

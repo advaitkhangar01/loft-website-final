@@ -7,11 +7,20 @@ export async function POST(request: Request) {
     const { formType, name, email, phone, message, membershipType, dateFrom, dateTo, requirement } = data;
 
     // Validate required fields
-    if (!name || !email) {
-      return NextResponse.json(
-        { error: 'Name and email are required fields.' },
-        { status: 400 }
-      );
+    if (formType === 'newsletter') {
+      if (!email) {
+        return NextResponse.json(
+          { error: 'Email is a required field.' },
+          { status: 400 }
+        );
+      }
+    } else {
+      if (!name || !email) {
+        return NextResponse.json(
+          { error: 'Name and email are required fields.' },
+          { status: 400 }
+        );
+      }
     }
 
     // Configure Nodemailer transporter
@@ -33,9 +42,9 @@ export async function POST(request: Request) {
     let htmlContent = `
       <h2>New Submission from LOFT Website</h2>
       <p><strong>Form Type:</strong> ${formType}</p>
-      <p><strong>Name:</strong> ${name}</p>
+      ${name ? `<p><strong>Name:</strong> ${name}</p>` : ''}
       <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Phone:</strong> ${phone || 'N/A'}</p>
+      ${phone ? `<p><strong>Phone:</strong> ${phone}</p>` : ''}
     `;
 
     if (formType === 'contact') {
@@ -53,6 +62,13 @@ export async function POST(request: Request) {
       htmlContent += `
         <p><strong>Requirement:</strong> ${requirement || 'N/A'}</p>
         <p><strong>Message:</strong><br/>${message?.replace(/\n/g, '<br/>') || 'N/A'}</p>
+      `;
+    } else if (formType === 'newsletter') {
+      subject = `New Newsletter Subscription: ${email}`;
+      htmlContent = `
+        <h2>New Newsletter Subscription from LOFT Website</h2>
+        <p><strong>Form Type:</strong> Newsletter Subscription</p>
+        <p><strong>Email:</strong> ${email}</p>
       `;
     }
 

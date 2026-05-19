@@ -45,7 +45,7 @@ export default function TestimonialSection() {
       ref={containerRef}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative bg-black text-white overflow-hidden flex flex-col items-center justify-center pt-12 md:pt-16 pb-24 md:pb-32"
+      className="relative bg-black text-white overflow-hidden flex flex-col items-center justify-center pt-4 md:pt-6 pb-24 md:pb-32"
       style={{ minHeight: "100vh" }}
       id="community"
     >
