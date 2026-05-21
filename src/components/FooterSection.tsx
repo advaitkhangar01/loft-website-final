@@ -68,11 +68,17 @@ export default function FooterSection() {
 
         </div>
 
-        {/* Massive Typography */}
-        <div className="w-full relative flex items-center justify-center pt-8 border-t border-white/10">
-          <h1 className="font-heading text-[clamp(100px,25vw,400px)] leading-[0.75] font-black tracking-tighter text-[#1a1a1a] hover:text-brand-lime transition-colors duration-700 cursor-default select-none pb-4">
-            LOFT
-          </h1>
+        {/* Massive Brand Logo Signature */}
+        <div className="w-full relative flex items-center justify-center pt-8 border-t border-white/10 group/logo">
+          <div className="relative w-full max-w-[1200px] aspect-[1300/490] opacity-[0.06] group-hover/logo:opacity-100 transition-opacity duration-700 cursor-default select-none pb-4">
+            <Image 
+              src="/assets/logo.svg" 
+              alt="LOFT Logo" 
+              fill
+              className="object-contain"
+              priority
+            />
+          </div>
           {/* Decorative floating sparkle */}
           <div className="absolute top-1/4 right-[15%] text-brand-lime text-[clamp(24px,5vw,64px)] pointer-events-none animate-pulse">
             ✦
