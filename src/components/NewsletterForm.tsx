@@ -39,7 +39,7 @@ export default function NewsletterForm({
 
       setShowSuccess(true);
       setEmail("");
-    } catch (err) {
+    } catch {
       setErrorMsg("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -50,12 +50,14 @@ export default function NewsletterForm({
     <div className="flex flex-col items-center w-full gap-4">
       <form
         onSubmit={handleSubscribe}
-        className={`bg-white rounded-full ${shadowClass} flex items-center p-2 w-full max-w-2xl group border border-gray-50 focus-within:border-[#5CB338]/30 transition-all duration-300`}
+        className={`bg-white rounded-[24px] sm:rounded-full ${shadowClass} flex flex-col sm:flex-row items-stretch sm:items-center p-2.5 sm:p-2 w-full max-w-2xl group border border-gray-50 focus-within:border-[#5CB338]/30 transition-all duration-300 gap-2 sm:gap-0`}
       >
         <input
+          id="newsletter-email"
           type="email"
           placeholder="your email"
-          className="bg-transparent flex-grow px-8 font-body text-black/80 outline-none placeholder:text-black/40"
+          aria-label="Your Email Address"
+          className="bg-transparent flex-grow px-6 sm:px-8 py-3 sm:py-0 font-body text-black/80 outline-none placeholder:text-black/40 w-full"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
@@ -64,7 +66,7 @@ export default function NewsletterForm({
         <button
           type="submit"
           disabled={isSubmitting}
-          className={`bg-[#1a1a1a] text-white px-10 ${buttonPaddingClass} rounded-full font-body font-semibold hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 active:scale-95`}
+          className={`bg-[#1a1a1a] text-white px-8 sm:px-10 ${buttonPaddingClass} rounded-full font-body font-semibold hover:bg-black disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 active:scale-95 w-full sm:w-auto cursor-pointer`}
         >
           {isSubmitting ? "submitting..." : buttonText}
         </button>

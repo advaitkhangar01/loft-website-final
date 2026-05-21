@@ -47,7 +47,7 @@ export default function MembershipsSection() {
       setSuccessPlan(title);
       setShowSuccess(true);
       formElement.reset();
-    } catch (err) {
+    } catch {
       setErrorIndex(index);
     } finally {
       setSubmittingIndex(null);
@@ -118,11 +118,16 @@ export default function MembershipsSection() {
             {/* Top Clickable Row */}
             <div 
               onClick={() => toggleExpand(index)}
-              className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-16 cursor-pointer group"
+              role="button"
+              tabIndex={0}
+              aria-expanded={isExpanded}
+              aria-controls={`membership-details-${index}`}
+              onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") { toggleExpand(index); e.preventDefault(); } }}
+              className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 md:gap-16 cursor-pointer group focus-visible:outline-none"
             >
               {/* Title */}
               <div className="flex-1 md:max-w-md lg:max-w-xl">
-                <h2 className="font-serif !not-italic font-normal text-[clamp(40px,5vw,72px)] leading-none">
+                <h2 id={`membership-title-${index}`} className="font-serif !not-italic font-normal text-[clamp(40px,5vw,72px)]">
                   {membership.title}
                 </h2>
               </div>
@@ -148,6 +153,9 @@ export default function MembershipsSection() {
 
             {/* Expandable Form Area */}
             <div 
+              id={`membership-details-${index}`}
+              role="region"
+              aria-labelledby={`membership-title-${index}`}
               className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-10' : 'grid-rows-[0fr] opacity-0 mt-0'}`}
             >
               <div className="overflow-hidden">
@@ -176,8 +184,9 @@ export default function MembershipsSection() {
                     <form className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6" onSubmit={(e) => handleSubmit(e, index, membership.title)}>
                       {/* Name */}
                       <div className="flex flex-col gap-2">
-                        <label className="font-body text-sm uppercase tracking-widest opacity-70">Name</label>
+                        <label htmlFor={`membership-name-${index}`} className="font-body text-sm uppercase tracking-widest opacity-70">Name</label>
                         <input 
+                          id={`membership-name-${index}`}
                           name="name"
                           type="text" 
                           placeholder="Your full name"
@@ -189,8 +198,9 @@ export default function MembershipsSection() {
 
                       {/* Email */}
                       <div className="flex flex-col gap-2">
-                        <label className="font-body text-sm uppercase tracking-widest opacity-70">Email</label>
+                        <label htmlFor={`membership-email-${index}`} className="font-body text-sm uppercase tracking-widest opacity-70">Email</label>
                         <input 
+                          id={`membership-email-${index}`}
                           name="email"
                           type="email" 
                           placeholder="you@company.com"
@@ -202,8 +212,9 @@ export default function MembershipsSection() {
 
                       {/* Phone */}
                       <div className="flex flex-col gap-2 md:col-span-2">
-                        <label className="font-body text-sm uppercase tracking-widest opacity-70">Phone Number</label>
+                        <label htmlFor={`membership-phone-${index}`} className="font-body text-sm uppercase tracking-widest opacity-70">Phone Number</label>
                         <input 
+                          id={`membership-phone-${index}`}
                           name="phone"
                           type="tel" 
                           placeholder="+91"
@@ -215,8 +226,9 @@ export default function MembershipsSection() {
 
                       {/* Date From */}
                       <div className="flex flex-col gap-2">
-                        <label className="font-body text-sm uppercase tracking-widest opacity-70">Date From</label>
+                        <label htmlFor={`membership-dateFrom-${index}`} className="font-body text-sm uppercase tracking-widest opacity-70">Date From</label>
                         <input 
+                          id={`membership-dateFrom-${index}`}
                           name="dateFrom"
                           type="date" 
                           className="bg-transparent border-b border-current/30 py-3 font-body text-lg outline-none focus:border-current transition-colors text-current opacity-80"
@@ -227,8 +239,9 @@ export default function MembershipsSection() {
 
                       {/* Date To */}
                       <div className="flex flex-col gap-2">
-                        <label className="font-body text-sm uppercase tracking-widest opacity-70">Date To</label>
+                        <label htmlFor={`membership-dateTo-${index}`} className="font-body text-sm uppercase tracking-widest opacity-70">Date To</label>
                         <input 
+                          id={`membership-dateTo-${index}`}
                           name="dateTo"
                           type="date" 
                           className="bg-transparent border-b border-current/30 py-3 font-body text-lg outline-none focus:border-current transition-colors text-current opacity-80"

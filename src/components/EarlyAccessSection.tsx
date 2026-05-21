@@ -47,11 +47,11 @@ export default function EarlyAccessSection() {
             <div className="text-center relative z-10">
               <AnimatedText 
                 text="Limited seats."
-                className="font-serif text-[clamp(32px,3.8vw,46px)] leading-tight tracking-tight justify-center"
+                className="font-serif text-[clamp(32px,3.8vw,46px)] justify-center"
               />
               <AnimatedText 
                 text="Early access open."
-                className="font-serif text-[clamp(32px,3.8vw,46px)] leading-tight tracking-tight justify-center"
+                className="font-serif text-[clamp(32px,3.8vw,46px)] justify-center"
                 delay={0.2}
               />
             </div>
@@ -84,7 +84,7 @@ export default function EarlyAccessSection() {
               01 : IT Park
             </h3>
             <p className="text-brand-lime font-body text-[clamp(17px,1.6vw,22px)] leading-snug mb-6">
-              Located in the heart of Nagpur's tech district. Built for those moving fast — with the infrastructure to match.
+              Located in the heart of Nagpur&apos;s tech district. Built for those moving fast — with the infrastructure to match.
             </p>
             <div className="mt-auto">
               <p className="text-white/60 font-body text-lg mb-1">Limited Seats Available</p>

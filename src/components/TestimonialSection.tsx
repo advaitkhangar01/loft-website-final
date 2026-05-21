@@ -9,6 +9,15 @@ export default function TestimonialSection() {
   const [index, setIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 640);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   // Mouse parallax values
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -82,13 +91,13 @@ export default function TestimonialSection() {
 
       {/* Interactive Card Stack */}
       <div 
-        className="relative z-20 cursor-pointer group focus-visible:outline-none"
+        className="relative z-20 cursor-pointer group focus-visible:outline-none w-[230px] sm:w-[280px] h-[340px] sm:h-[420px] mb-[60px]"
         onClick={nextTestimonial}
         onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") nextTestimonial(); }}
         tabIndex={0}
         role="button"
         aria-label="Next testimonial"
-        style={{ width: "280px", height: "420px", marginBottom: "60px", perspective: "1000px" }}
+        style={{ perspective: "1000px" }}
       >
         <motion.div
           style={{ 
@@ -114,15 +123,15 @@ export default function TestimonialSection() {
                     scale: 0.8, 
                     opacity: 0, 
                     y: offset * 20,
-                    rotate: offset === 1 ? -8 : offset === 2 ? 8 : 0,
-                    x: offset === 1 ? -20 : offset === 2 ? 20 : 0
+                    rotate: offset === 1 ? (isMobile ? -4 : -8) : offset === 2 ? (isMobile ? 4 : 8) : 0,
+                    x: offset === 1 ? (isMobile ? -10 : -20) : offset === 2 ? (isMobile ? 10 : 20) : 0
                   }}
                   animate={{ 
                     scale: 1 - offset * 0.05,
                     opacity: 1 - offset * 0.3,
                     y: offset * 12,
-                    x: isFront ? 0 : offset === 1 ? -30 : 30,
-                    rotate: isFront ? 0 : offset === 1 ? -12 : 12,
+                    x: isFront ? 0 : offset === 1 ? (isMobile ? -12 : -30) : (isMobile ? 12 : 30),
+                    rotate: isFront ? 0 : offset === 1 ? (isMobile ? -5 : -12) : (isMobile ? 5 : 12),
                     zIndex: 30 - offset * 10,
                   }}
                   exit={{ 
@@ -184,7 +193,7 @@ export default function TestimonialSection() {
             <p
               className="text-white/95 mb-8 font-body font-medium leading-[1.35] tracking-[-0.03em] text-[clamp(20px,2.5vw,28px)]"
             >
-              "{testimonials[index].quote}"
+              &ldquo;{testimonials[index].quote}&rdquo;
             </p>
             
             <div className="flex flex-col items-center gap-1">

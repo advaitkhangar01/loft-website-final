@@ -77,7 +77,7 @@ export default function FeaturesSection() {
         />
         <AnimatedText 
           text="how you work" 
-          className="font-serif text-[clamp(60px,8vw,100px)] leading-[0.9] tracking-tight justify-center" 
+          className="font-serif text-[clamp(60px,8vw,100px)] justify-center" 
           style={{ fontStyle: "normal" }}
           delay={0.2} 
         />

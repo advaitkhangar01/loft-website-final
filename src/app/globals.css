@@ -74,7 +74,7 @@
   .font-serif {
     font-family: var(--font-serif);
     font-style: italic;
-    letter-spacing: -0.06em;
+    letter-spacing: -0.067em;
     line-height: 0.97;
   }
 
@@ -90,6 +90,32 @@
   
   .dark-map:hover {
     filter: grayscale(0%) invert(0%) contrast(100%);
+  }
+
+  @keyframes textShimmer {
+    0% {
+      background-position: 200% center;
+    }
+    100% {
+      background-position: -200% center;
+    }
+  }
+
+  .animate-text-shimmer span {
+    background: linear-gradient(
+      120deg,
+      var(--color-brand-lime) 0%,
+      var(--color-brand-lime) 35%,
+      #ffffff 50%,
+      var(--color-brand-lime) 65%,
+      var(--color-brand-lime) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textShimmer 4s linear infinite;
+    padding-right: 0.15em;
   }
 }
 

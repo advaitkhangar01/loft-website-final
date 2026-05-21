@@ -77,8 +77,8 @@ export default function EventsSection() {
           />
           <AnimatedText 
             text="Something always happening"
-            className="font-serif text-[#5CB338] text-[clamp(40px,5.2vw,76px)] leading-none mb-6 tracking-[-0.04em] justify-end w-full whitespace-nowrap flex-nowrap"
-            style={{ fontStyle: "normal", flexWrap: "nowrap" }}
+            className="font-serif text-[#5CB338] text-[clamp(40px,5.2vw,76px)] mb-6 justify-end w-full"
+            style={{ fontStyle: "normal" }}
             delay={0.2}
           />
           

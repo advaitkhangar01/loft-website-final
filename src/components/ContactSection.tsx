@@ -35,7 +35,7 @@ export default function ContactSection() {
       if (!res.ok) throw new Error("Failed to submit");
       setShowSuccess(true);
       formElement.reset();
-    } catch (err) {
+    } catch {
       setErrorMsg("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
@@ -68,7 +68,7 @@ export default function ContactSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="font-body text-[clamp(20px,2vw,28px)] leading-snug mb-6 text-white/90 max-w-xl"
           >
-            Whether you're looking for a private cabin, a dedicated desk, or just a place to host your next event — let's talk.
+            Whether you&apos;re looking for a private cabin, a dedicated desk, or just a place to host your next event — let&apos;s talk.
           </motion.p>
           
           <motion.div 
@@ -152,11 +152,12 @@ export default function ContactSection() {
               
               {/* Name */}
               <div className="flex flex-col gap-2">
-                <label className="font-body text-sm uppercase tracking-widest text-white/60">Your Name</label>
+                <label htmlFor="contact-name" className="font-body text-sm uppercase tracking-widest text-white/60">Your Name</label>
                 <input 
+                  id="contact-name"
                   name="name"
                   type="text" 
-                  placeholder="Jane Doe"
+                  placeholder="Your full name"
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20"
                   required
                   disabled={isSubmitting}
@@ -165,11 +166,12 @@ export default function ContactSection() {
 
               {/* Email */}
               <div className="flex flex-col gap-2">
-                <label className="font-body text-sm uppercase tracking-widest text-white/60">Email Address</label>
+                <label htmlFor="contact-email" className="font-body text-sm uppercase tracking-widest text-white/60">Email Address</label>
                 <input 
+                  id="contact-email"
                   name="email"
                   type="email" 
-                  placeholder="jane@example.com"
+                  placeholder="you@company.com"
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20"
                   required
                   disabled={isSubmitting}
@@ -178,11 +180,12 @@ export default function ContactSection() {
 
               {/* Phone */}
               <div className="flex flex-col gap-2">
-                <label className="font-body text-sm uppercase tracking-widest text-white/60">Phone Number</label>
+                <label htmlFor="contact-phone" className="font-body text-sm uppercase tracking-widest text-white/60">Phone Number</label>
                 <input 
+                  id="contact-phone"
                   name="phone"
                   type="tel" 
-                  placeholder="+91"
+                  placeholder="+91 XXXXX XXXXX"
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20"
                   disabled={isSubmitting}
                 />
@@ -190,10 +193,11 @@ export default function ContactSection() {
 
               {/* Message */}
               <div className="flex flex-col gap-2 flex-1 min-h-[100px]">
-                <label className="font-body text-sm uppercase tracking-widest text-white/60">Message</label>
+                <label htmlFor="contact-message" className="font-body text-sm uppercase tracking-widest text-white/60">Message</label>
                 <textarea 
+                  id="contact-message"
                   name="message"
-                  placeholder="How can we help you?"
+                  placeholder="Tell us about your requirements..."
                   className="bg-transparent border-b border-white/20 py-3 font-body text-lg text-white outline-none focus:border-brand-lime transition-colors placeholder:text-white/20 resize-none flex-1 min-h-[60px]"
                   required
                   disabled={isSubmitting}
