@@ -34,7 +34,7 @@ export default function HeroSection() {
       <div className="absolute inset-0 pointer-events-none bg-radial-glow" />
 
       {/* Header */}
-      <Header />
+      <Header hideAfterHero />
 
       {/* Main Content Area (centered on full page) */}
       <motion.div 

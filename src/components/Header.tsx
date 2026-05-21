@@ -1,14 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Header() {
+export default function Header({ hideAfterHero = false }: { hideAfterHero?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
 
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  useEffect(() => {
+    if (!hideAfterHero) return;
+
+    const handleScroll = () => {
+      // Hide header when scrolled past hero section (approx window.innerHeight - 100)
+      if (window.scrollY > window.innerHeight - 100) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    // Call once to set initial state
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [hideAfterHero]);
 
   // Framer Motion variants for mobile menu
   const menuVariants = {
@@ -49,7 +71,9 @@ export default function Header() {
 
   return (
     <>
-      <nav className="fixed top-0 left-0 w-full z-[100] flex items-center justify-between px-6 py-5 md:px-12 md:py-8 pointer-events-none">
+      <nav className={`fixed top-0 left-0 w-full z-[100] flex items-center justify-between px-6 py-5 md:px-12 md:py-8 pointer-events-none transition-all duration-500 ease-in-out ${
+        isVisible || isOpen ? "translate-y-0 opacity-100" : "-translate-y-full opacity-0"
+      }`}>
         {/* Logo Container (Left) */}
         <div className="flex-1 pointer-events-auto">
           <Link href="/" className="inline-flex items-center relative w-[120px] h-[40px] md:w-[160px] md:h-[55px]">
