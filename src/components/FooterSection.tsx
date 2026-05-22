@@ -47,9 +47,13 @@ export default function FooterSection() {
           {/* Socials */}
           <div className="flex flex-col gap-4">
             <span className="font-body text-sm uppercase tracking-widest text-brand-lime mb-2">Connect</span>
-            {["Instagram", "LinkedIn", "Twitter"].map((link) => (
-              <Link key={link} href="#" className="font-body text-lg text-white/80 hover:text-white transition-colors w-fit group">
-                {link}
+            {[
+              { label: "Instagram", href: "https://www.instagram.com/theloftcoworks" },
+              { label: "LinkedIn", href: "https://www.linkedin.com/company/loft-coworks/" },
+              { label: "Twitter", href: "#" },
+            ].map(({ label, href }) => (
+              <Link key={label} href={href} target={href !== "#" ? "_blank" : undefined} rel={href !== "#" ? "noopener noreferrer" : undefined} className="font-body text-lg text-white/80 hover:text-white transition-colors w-fit group">
+                {label}
                 <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-[1px] bg-brand-lime"></span>
               </Link>
             ))}
