@@ -37,12 +37,6 @@ export default function EarlyAccessSection() {
                 strokeLinecap="round"
                 className="opacity-80"
               />
-              <path 
-                d="M 35,55 C 35,32 105,16 190,16 C 275,16 365,32 365,55 C 365,78 275,98 190,98 C 105,98 45,78 30,60 C 22,50 50,35 85,28" 
-                stroke="currentColor" 
-                strokeWidth="2"
-                strokeLinecap="round"
-              />
             </svg>
             <div className="text-center relative z-10">
               <AnimatedText 
