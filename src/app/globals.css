@@ -11,6 +11,11 @@
   --font-sans: "Helvetica Now Text", Arial, sans-serif;
   --font-serif: "Times New Roman MT Condensed", "Times New Roman", serif;
   --font-heading: "CustomFont", system-ui, sans-serif;
+
+  --line-height-relaxed: 1.52;
+  --line-height-snug: 1.32;
+  --line-height-normal: 1.42;
+  --line-height-tight: 1.2;
 }
 
 @layer base {
@@ -124,6 +129,6 @@ body {
   color: var(--color-foreground);
   font-family: var(--font-sans);
   letter-spacing: -0.025em;
-  line-height: 1.5;
+  line-height: 1.45;
   overflow-x: hidden;
 }

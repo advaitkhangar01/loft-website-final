@@ -134,7 +134,7 @@ export default function MembershipsSection() {
               
               {/* Description */}
               <div className="flex-[2] md:max-w-2xl flex flex-col gap-4">
-                <p className="font-body text-[clamp(18px,1.5vw,24px)] leading-[1.55] tracking-[-0.015em]">
+                <p className="font-body text-[clamp(18px,1.5vw,24px)] leading-[1.45] tracking-[-0.015em]">
                   {membership.description}
                 </p>
               </div>

@@ -191,7 +191,7 @@ export default function TestimonialSection() {
             className="flex flex-col items-center"
           >
             <p
-              className="text-white/95 mb-8 font-body font-medium leading-[1.35] tracking-[-0.03em] text-[clamp(20px,2.5vw,28px)]"
+              className="text-white/95 mb-8 font-body font-medium leading-[1.28] tracking-[-0.03em] text-[clamp(20px,2.5vw,28px)]"
             >
               &ldquo;{testimonials[index].quote}&rdquo;
             </p>

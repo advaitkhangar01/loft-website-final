@@ -78,7 +78,7 @@ export default async function StoryPage({ params }: { params: Promise<{ slug: st
 
         {/* Story Content */}
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_250px] gap-16">
-          <div className="font-body text-lg md:text-xl text-black/80 leading-[1.8] space-y-10 max-w-3xl">
+          <div className="font-body text-lg md:text-xl text-black/80 leading-[1.7] space-y-10 max-w-3xl">
             {story.content.map((paragraph, index) => (
               <p 
                 key={index} 

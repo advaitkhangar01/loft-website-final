@@ -118,7 +118,7 @@ export default function FeaturesSection() {
               </h4>
               
               {/* Description */}
-              <p className="font-body text-white/90 text-[14px] lg:text-[15px] leading-[1.3] tracking-tight">
+              <p className="font-body text-white/90 text-[14px] lg:text-[15px] leading-[1.25] tracking-tight">
                 {feature.description}
               </p>
             </div>
