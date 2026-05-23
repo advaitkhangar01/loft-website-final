@@ -5,6 +5,7 @@ import TestimonialSection from "@/components/TestimonialSection";
 import VideoShowcaseSection from "@/components/VideoShowcaseSection";
 import StoriesSection from "@/components/StoriesSection";
 import EventsSection from "@/components/EventsSection";
+import BlogsSection from "@/components/BlogsSection";
 import OriginSection from "@/components/OriginSection";
 import EarlyAccessSection from "@/components/EarlyAccessSection";
 import MembershipsSection from "@/components/MembershipsSection";
@@ -20,6 +21,7 @@ export default function Home() {
       <VideoShowcaseSection />
       <StoriesSection />
       <EventsSection />
+      <BlogsSection />
       <OriginSection />
       <EarlyAccessSection />
       <MembershipsSection />

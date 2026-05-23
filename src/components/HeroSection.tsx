@@ -5,6 +5,7 @@ import Header from "./Header";
 import BookingPanel from "./BookingPanel";
 import AnimatedText from "./AnimatedText";
 import { motion } from "framer-motion";
+import Link from "next/link";
 
 export default function HeroSection() {
   const [isBookingOpen, setIsBookingOpen] = useState(false);
@@ -101,15 +102,15 @@ export default function HeroSection() {
 
         {/* CTA Buttons */}
         <motion.div variants={itemVariants} className="flex flex-col sm:flex-row gap-4 sm:gap-6 mt-8 sm:mt-12 px-6 w-full sm:w-auto items-center justify-center z-10">
-          <button 
-            onClick={() => setIsBookingOpen(true)}
-            className="w-full sm:w-auto rounded-full bg-white/[0.03] backdrop-blur-xl border border-white/10 text-brand-lime px-8 sm:px-12 py-3 sm:py-4 font-serif text-[20px] sm:text-[28px] leading-none hover:bg-white/[0.08] hover:border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.15)] transition-all duration-300 cursor-pointer"
+          <Link 
+            href="/book"
+            className="w-full sm:w-auto rounded-full bg-white/[0.03] backdrop-blur-xl border border-white/10 text-brand-lime px-8 sm:px-12 py-3 sm:py-4 font-serif text-[20px] sm:text-[28px] leading-none hover:bg-white/[0.08] hover:border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.15)] transition-all duration-300 cursor-pointer text-center"
           >
             Book a seat
-          </button>
+          </Link>
           <button 
             onClick={() => setIsBookingOpen(true)}
-            className="w-full sm:w-auto rounded-full bg-white/[0.03] backdrop-blur-xl border border-white/10 text-white px-8 sm:px-12 py-3 sm:py-4 font-serif text-[20px] sm:text-[28px] leading-none hover:bg-white/[0.08] hover:border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.15)] transition-all duration-300 cursor-pointer"
+            className="w-full sm:w-auto rounded-full bg-white/[0.03] backdrop-blur-xl border border-white/10 text-white px-8 sm:px-12 py-3 sm:py-4 font-serif text-[20px] sm:text-[28px] leading-none hover:bg-white/[0.08] hover:border-white/20 shadow-[0_8px_32px_0_rgba(0,0,0,0.3),inset_0_1px_1px_0_rgba(255,255,255,0.15)] transition-all duration-300 cursor-pointer text-center"
           >
             Book a tour
           </button>

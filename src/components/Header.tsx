@@ -66,6 +66,7 @@ export default function Header({ hideAfterHero = false }: { hideAfterHero?: bool
     { name: "Location", href: "/#location" },
     { name: "Spaces", href: "/#spaces" },
     { name: "Community", href: "/#community" },
+    { name: "Blogs", href: "/blogs" },
     { name: "Contact Us", href: "/#contact" },
   ];
 
