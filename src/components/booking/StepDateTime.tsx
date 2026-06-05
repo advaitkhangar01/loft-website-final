@@ -23,33 +23,72 @@ interface StepDateTimeProps {
 }
 
 export default function StepDateTime({ booking, setBooking, onNext, onBack }: StepDateTimeProps) {
-  const [currentMonth, setCurrentMonth] = useState("April");
-
   const weekdays = ["SUN", "MON", "TUES", "WED", "THU", "FRI", "SAT"];
-  const daysInApril = Array.from({ length: 30 }, (_, i) => i + 1);
-  const leadingBlanks = [null, null, null]; // Sun, Mon, Tue blanks
-  const trailingDays = [1, 2]; // May days shown greyed out at the end
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
 
-  const calendarDays = [...leadingBlanks, ...daysInApril, ...trailingDays];
+  // Parse booking date or fallback to current date
+  const getBookingDate = () => {
+    if (booking.date) {
+      const parsed = Date.parse(booking.date);
+      if (!isNaN(parsed)) {
+        return new Date(parsed);
+      }
+    }
+    return new Date();
+  };
+
+  const bookingDate = getBookingDate();
+
+  const [viewedYear, setViewedYear] = useState(bookingDate.getFullYear());
+  const [viewedMonthIndex, setViewedMonthIndex] = useState(bookingDate.getMonth());
+
+  // Number of days in the current viewed month
+  const daysInMonth = new Date(viewedYear, viewedMonthIndex + 1, 0).getDate();
+  
+  // The day of the week the 1st of the month falls on (0 = Sunday, 1 = Monday, etc.)
+  const firstDayOfWeek = new Date(viewedYear, viewedMonthIndex, 1).getDay();
+  
+  // Leading blank spaces for days of the week before the 1st
+  const leadingBlanks = Array.from({ length: firstDayOfWeek }, () => null);
+  
+  // Days of the current month
+  const daysArray = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  
+  // Trailing days from the next month to fill out the last week row
+  const totalCells = leadingBlanks.length + daysArray.length;
+  const totalCellsNeeded = Math.ceil(totalCells / 7) * 7;
+  const trailingCount = totalCellsNeeded - totalCells;
+  const trailingDays = Array.from({ length: trailingCount }, (_, i) => i + 1);
+
+  const calendarDays = [...leadingBlanks, ...daysArray, ...trailingDays];
 
   // Time Slots
   const timeSlots = ["9:00 AM", "11:00 AM", "1:00 PM", "3:00 PM", "5:00 PM", "7:00 PM"];
 
-  // Extract day number from current date string if it matches "April X, 2026"
+  // Extract day number from current date string if it matches viewed month/year
   const getSelectedDayNumber = () => {
-    if (booking.date.startsWith("April")) {
-      const match = booking.date.match(/April (\d+)/);
-      return match ? parseInt(match[1]) : 22;
+    if (booking.date) {
+      const parsed = Date.parse(booking.date);
+      if (!isNaN(parsed)) {
+        const d = new Date(parsed);
+        if (d.getFullYear() === viewedYear && d.getMonth() === viewedMonthIndex) {
+          return d.getDate();
+        }
+      }
     }
-    return 22; // default
+    return null;
   };
 
   const selectedDay = getSelectedDayNumber();
 
   const handleSelectDay = (day: number) => {
+    const monthName = monthNames[viewedMonthIndex];
     setBooking((prev) => ({
       ...prev,
-      date: `${currentMonth} ${day}, 2026`,
+      date: `${monthName} ${day}, ${viewedYear}`,
     }));
   };
 
@@ -59,11 +98,31 @@ export default function StepDateTime({ booking, setBooking, onNext, onBack }: St
 
   const toggleMonth = (direction: "prev" | "next") => {
     if (direction === "prev") {
-      setCurrentMonth(currentMonth === "April" ? "March" : currentMonth === "May" ? "April" : "March");
+      setViewedMonthIndex((prev) => {
+        if (prev === 0) {
+          setViewedYear((y) => y - 1);
+          return 11;
+        }
+        return prev - 1;
+      });
     } else {
-      setCurrentMonth(currentMonth === "April" ? "May" : currentMonth === "March" ? "April" : "May");
+      setViewedMonthIndex((prev) => {
+        if (prev === 11) {
+          setViewedYear((y) => y + 1);
+          return 0;
+        }
+        return prev + 1;
+      });
     }
   };
+
+  const today = new Date();
+  const currentMonthLimit = today.getMonth();
+  const currentYearLimit = today.getFullYear();
+
+  const isPrevDisabled =
+    viewedYear < currentYearLimit ||
+    (viewedYear === currentYearLimit && viewedMonthIndex <= currentMonthLimit);
 
   return (
     <div className="flex flex-col gap-6 font-body">
@@ -100,13 +159,16 @@ export default function StepDateTime({ booking, setBooking, onNext, onBack }: St
             {/* Header Month Toggle */}
             <div className="flex justify-between items-center mb-6">
               <button
-                onClick={() => toggleMonth("prev")}
-                className="text-white hover:text-brand-lime transition-colors p-1 cursor-pointer select-none font-bold"
+                onClick={() => !isPrevDisabled && toggleMonth("prev")}
+                disabled={isPrevDisabled}
+                className={`text-white hover:text-brand-lime transition-colors p-1 cursor-pointer select-none font-bold ${
+                  isPrevDisabled ? "opacity-20 cursor-not-allowed hover:text-white" : ""
+                }`}
               >
                 &lt;
               </button>
               <h3 className="brand-serif-regular text-[28px] sm:text-[34px] text-[#9ef01a] leading-none tracking-[-0.04em] font-normal">
-                {currentMonth}
+                {monthNames[viewedMonthIndex]} {viewedYear}
               </h3>
               <button
                 onClick={() => toggleMonth("next")}
@@ -130,10 +192,26 @@ export default function StepDateTime({ booking, setBooking, onNext, onBack }: St
                   return <div key={`blank-${idx}`} className="h-8" />;
                 }
 
-                const isTrailing = idx >= calendarDays.length - trailingDays.length;
+                const isTrailing = idx >= calendarDays.length - trailingCount;
                 if (isTrailing) {
                   return (
                     <span key={`trail-${day}-${idx}`} className="text-white/20 text-xs font-semibold select-none h-8 flex items-center justify-center">
+                      {day}
+                    </span>
+                  );
+                }
+
+                // Check if day is in the past
+                const dayDate = new Date(viewedYear, viewedMonthIndex, day);
+                const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                const isPast = dayDate < todayMidnight;
+
+                if (isPast) {
+                  return (
+                    <span
+                      key={`day-${day}`}
+                      className="text-white/20 text-xs font-semibold select-none h-8 flex items-center justify-center cursor-not-allowed"
+                    >
                       {day}
                     </span>
                   );

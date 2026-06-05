@@ -58,15 +58,25 @@ export default function StepChoosePlan({ booking, setBooking, onNext }: StepChoo
     },
   ];
 
-  const locations = ["IT Park", "Ramdaspeth"];
+  const locations = ["IT Park", "Abhyankar nagar"];
 
   const handleSelectPlan = (planId: string) => {
     setBooking((prev) => ({ ...prev, plan: planId }));
   };
 
   const handleSelectLocation = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setBooking((prev) => ({ ...prev, location: e.target.value }));
+    const nextLoc = e.target.value;
+    setBooking((prev) => {
+      const isUnavailable = nextLoc === "IT Park" && ["Day Pass", "Weekly Pass", "Meeting Room"].includes(prev.plan);
+      return {
+        ...prev,
+        location: nextLoc,
+        plan: isUnavailable ? "" : prev.plan
+      };
+    });
   };
+
+  const isNextDisabled = !booking.location || !booking.plan;
 
   return (
     <div className="flex flex-col gap-6 font-body">
@@ -105,7 +115,35 @@ export default function StepChoosePlan({ booking, setBooking, onNext }: StepChoo
       {/* Grid of Plans - Squarer aspects to match reference same-to-same */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {plans.map((plan) => {
+          const isUnavailable = booking.location === "IT Park" && ["Day Pass", "Weekly Pass", "Meeting Room"].includes(plan.id);
           const isSelected = booking.plan === plan.id;
+
+          if (isUnavailable) {
+            return (
+              <div
+                key={plan.id}
+                className="p-6 rounded-[24px] bg-black/30 border border-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.01)] flex flex-col justify-between aspect-square md:aspect-auto md:h-[200px] opacity-25 cursor-not-allowed relative overflow-hidden select-none"
+              >
+                <div>
+                  <h3 className="brand-serif-regular text-[28px] sm:text-[32px] text-white/40 leading-none tracking-[-0.04em] mb-2 font-normal line-through decoration-white/40">
+                    {plan.title}
+                  </h3>
+                  <span className="text-[12px] font-bold text-white/20 tracking-wide block mb-3">
+                    {plan.price}
+                  </span>
+                </div>
+                <p className="text-[11px] text-white/20 leading-snug">{plan.desc}</p>
+                
+                {/* Subtle unavailable banner/overlay text */}
+                <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                  <span className="text-[10px] uppercase font-bold tracking-widest text-white/60 bg-white/10 px-2.5 py-1 rounded-[6px] backdrop-blur-sm border border-white/10">
+                    Not Available at IT Park
+                  </span>
+                </div>
+              </div>
+            );
+          }
+
           return (
             <div
               key={plan.id}
@@ -133,8 +171,11 @@ export default function StepChoosePlan({ booking, setBooking, onNext }: StepChoo
       {/* Next Step Controls */}
       <div className="flex mt-2">
         <button
-          onClick={onNext}
-          className="glass-btn px-12 py-3 text-white brand-serif text-[22px] sm:text-[26px] leading-none transition-all duration-300 cursor-pointer"
+          onClick={() => !isNextDisabled && onNext()}
+          disabled={isNextDisabled}
+          className={`glass-btn px-12 py-3 text-white brand-serif text-[22px] sm:text-[26px] leading-none transition-all duration-300 cursor-pointer ${
+            isNextDisabled ? "opacity-20 cursor-not-allowed hover:bg-transparent" : ""
+          }`}
         >
           Next
         </button>

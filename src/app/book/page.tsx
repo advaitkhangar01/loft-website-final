@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
@@ -15,11 +15,25 @@ export default function BookingPage() {
   const [booking, setBooking] = useState({
     step: 1 as 1 | 2 | 3 | 4,
     location: "IT Park", // Pre-populated from screenshots
-    plan: "Meeting Room", // Pre-populated from screenshots
-    date: "March 16, 2026", // Pre-populated from screenshots
-    time: "8:00 AM", // Pre-populated from screenshots
+    plan: "Dedicated Desk", // Pre-populated from screenshots
+    date: "", 
+    time: "", 
     addons: ["Guest Day Pass"], // Pre-populated from screenshots
   });
+
+  useEffect(() => {
+    const today = new Date();
+    const monthNames = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const defaultDate = `${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+    setBooking((prev) => ({
+      ...prev,
+      date: prev.date || defaultDate,
+      time: prev.time || "9:00 AM",
+    }));
+  }, []);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
