@@ -15,7 +15,7 @@ export default function BookingPage() {
   const [booking, setBooking] = useState({
     step: 1 as 1 | 2 | 3 | 4,
     location: "IT Park", // Pre-populated from screenshots
-    plan: "Dedicated Desk", // Pre-populated from screenshots
+    plan: "4 Seater Cabin", // Pre-populated from screenshots
     date: "", 
     time: "", 
     addons: ["Guest Day Pass"], // Pre-populated from screenshots

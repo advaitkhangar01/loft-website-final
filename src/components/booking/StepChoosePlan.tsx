@@ -67,7 +67,7 @@ export default function StepChoosePlan({ booking, setBooking, onNext }: StepChoo
   const handleSelectLocation = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const nextLoc = e.target.value;
     setBooking((prev) => {
-      const isUnavailable = nextLoc === "IT Park" && ["Day Pass", "Weekly Pass", "Meeting Room"].includes(prev.plan);
+      const isUnavailable = nextLoc === "IT Park" && ["Day Pass", "Weekly Pass", "Dedicated Desk", "Meeting Room"].includes(prev.plan);
       return {
         ...prev,
         location: nextLoc,
@@ -115,7 +115,7 @@ export default function StepChoosePlan({ booking, setBooking, onNext }: StepChoo
       {/* Grid of Plans - Squarer aspects to match reference same-to-same */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
         {plans.map((plan) => {
-          const isUnavailable = booking.location === "IT Park" && ["Day Pass", "Weekly Pass", "Meeting Room"].includes(plan.id);
+          const isUnavailable = booking.location === "IT Park" && ["Day Pass", "Weekly Pass", "Dedicated Desk", "Meeting Room"].includes(plan.id);
           const isSelected = booking.plan === plan.id;
 
           if (isUnavailable) {
