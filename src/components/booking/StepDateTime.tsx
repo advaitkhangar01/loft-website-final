@@ -5,6 +5,7 @@ import { useState } from "react";
 interface StepDateTimeProps {
   booking: {
     location: string;
+    plan: string;
     date: string;
     time: string;
   };
@@ -23,6 +24,7 @@ interface StepDateTimeProps {
 }
 
 export default function StepDateTime({ booking, setBooking, onNext, onBack }: StepDateTimeProps) {
+  const isCabin = booking.plan === "4 Seater Cabin" || booking.plan === "8 Seater Cabin";
   const weekdays = ["SUN", "MON", "TUES", "WED", "THU", "FRI", "SAT"];
   const monthNames = [
     "January", "February", "March", "April", "May", "June",
@@ -238,33 +240,35 @@ export default function StepDateTime({ booking, setBooking, onNext, onBack }: St
         </div>
 
         {/* Time Card - styled as a thin, narrow column with subtle white/grey border, no green border */}
-        <div className="p-4 py-8 rounded-[24px] bg-black/60 border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] w-full md:w-[190px] min-h-[400px] flex flex-col justify-start shrink-0">
-          <div>
-            <h3 className="brand-serif-regular text-[32px] sm:text-[36px] text-[#9ef01a] leading-none tracking-[-0.04em] mb-8 text-center font-normal">
-              Time
-            </h3>
+        {!isCabin && (
+          <div className="p-4 py-8 rounded-[24px] bg-black/60 border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] w-full md:w-[190px] min-h-[400px] flex flex-col justify-start shrink-0">
+            <div>
+              <h3 className="brand-serif-regular text-[32px] sm:text-[36px] text-[#9ef01a] leading-none tracking-[-0.04em] mb-8 text-center font-normal">
+                Time
+              </h3>
 
-            {/* Time Slot Slim Rounded Rectangles touching card side borders */}
-            <div className="flex flex-col gap-3.5 w-full px-1">
-              {timeSlots.map((slot) => {
-                const isSelected = booking.time === slot;
-                return (
-                  <button
-                    key={slot}
-                    onClick={() => handleSelectTime(slot)}
-                    className={`w-full rounded-[10px] py-2 text-[12px] font-bold tracking-tight transition-all duration-300 cursor-pointer text-center select-none bg-transparent border ${
-                      isSelected
-                        ? "border-[#9ef01a] text-[#9ef01a]"
-                        : "border-white/20 text-white hover:border-white/40"
-                    }`}
-                  >
-                    {slot}
-                  </button>
-                );
-              })}
+              {/* Time Slot Slim Rounded Rectangles touching card side borders */}
+              <div className="flex flex-col gap-3.5 w-full px-1">
+                {timeSlots.map((slot) => {
+                  const isSelected = booking.time === slot;
+                  return (
+                    <button
+                      key={slot}
+                      onClick={() => handleSelectTime(slot)}
+                      className={`w-full rounded-[10px] py-2 text-[12px] font-bold tracking-tight transition-all duration-300 cursor-pointer text-center select-none bg-transparent border ${
+                        isSelected
+                          ? "border-[#9ef01a] text-[#9ef01a]"
+                          : "border-white/20 text-white hover:border-white/40"
+                      }`}
+                    >
+                      {slot}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* Navigation Buttons */}

@@ -61,17 +61,25 @@ export default function StepChoosePlan({ booking, setBooking, onNext }: StepChoo
   const locations = ["IT Park", "Abhyankar nagar"];
 
   const handleSelectPlan = (planId: string) => {
-    setBooking((prev) => ({ ...prev, plan: planId }));
+    const isCabin = planId === "4 Seater Cabin" || planId === "8 Seater Cabin";
+    setBooking((prev) => ({
+      ...prev,
+      plan: planId,
+      time: isCabin ? "" : (prev.time || "9:00 AM")
+    }));
   };
 
   const handleSelectLocation = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const nextLoc = e.target.value;
     setBooking((prev) => {
       const isUnavailable = nextLoc === "IT Park" && ["Day Pass", "Weekly Pass", "Dedicated Desk", "Meeting Room"].includes(prev.plan);
+      const nextPlan = isUnavailable ? "" : prev.plan;
+      const isCabin = nextPlan === "4 Seater Cabin" || nextPlan === "8 Seater Cabin";
       return {
         ...prev,
         location: nextLoc,
-        plan: isUnavailable ? "" : prev.plan
+        plan: nextPlan,
+        time: isCabin ? "" : (prev.time || "9:00 AM")
       };
     });
   };

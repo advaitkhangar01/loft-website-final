@@ -15,6 +15,7 @@ interface SidebarSummaryProps {
 
 export default function SidebarSummary({ booking, onPayNowClick, isSubmitting = false }: SidebarSummaryProps) {
   const addOnsText = booking.addons.length > 0 ? booking.addons.join(", ") : "None Selected";
+  const isCabin = booking.plan === "4 Seater Cabin" || booking.plan === "8 Seater Cabin";
 
   return (
     <div className="w-full lg:sticky lg:top-8 flex flex-col gap-4 select-none">
@@ -48,14 +49,16 @@ export default function SidebarSummary({ booking, onPayNowClick, isSubmitting = 
             </div>
 
             {/* Time Row */}
-            <div className="flex justify-between items-center border-b-[1.5px] border-black pb-4 pt-1">
-              <span className="brand-serif-regular text-[38px] sm:text-[44px] leading-none tracking-[-0.05em] text-black">
-                Time
-              </span>
-              <span className="text-[15px] sm:text-[16px] font-bold text-black text-right tracking-tight">
-                {booking.time || "Select Time"}
-              </span>
-            </div>
+            {!isCabin && (
+              <div className="flex justify-between items-center border-b-[1.5px] border-black pb-4 pt-1">
+                <span className="brand-serif-regular text-[38px] sm:text-[44px] leading-none tracking-[-0.05em] text-black">
+                  Time
+                </span>
+                <span className="text-[15px] sm:text-[16px] font-bold text-black text-right tracking-tight">
+                  {booking.time || "Select Time"}
+                </span>
+              </div>
+            )}
 
             {/* Add Ons Row */}
             <div className="flex justify-between items-center border-b-[1.5px] border-black pb-4 pt-1">

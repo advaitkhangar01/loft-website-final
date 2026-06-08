@@ -45,6 +45,8 @@ export default function StepConfirmPay({
     const email = formData.get("email") as string;
     const phone = formData.get("phone") as string;
 
+    const isCabin = booking.plan === "4 Seater Cabin" || booking.plan === "8 Seater Cabin";
+
     const bookingDetails = {
       name,
       email,
@@ -52,7 +54,7 @@ export default function StepConfirmPay({
       location: booking.location || "IT Park",
       plan: booking.plan || "Not Selected",
       date: booking.date || "Not Selected",
-      time: booking.time || "Not Selected",
+      time: isCabin ? "N/A (Monthly Cabin Booking)" : (booking.time || "Not Selected"),
       addons: booking.addons.join(", ") || "None",
       _subject: `New Co-working Booking Enquiry from ${name}`,
       _honey: "",

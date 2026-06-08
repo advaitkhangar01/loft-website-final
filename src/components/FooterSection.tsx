@@ -12,7 +12,7 @@ export default function FooterSection() {
       <div className="max-w-[1600px] w-full mx-auto px-8 relative z-10 flex flex-col">
         
         {/* Top Grid Area */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8 mb-24">
           
           {/* Brand & Address */}
           <div className="flex flex-col gap-6">
@@ -49,6 +49,23 @@ export default function FooterSection() {
             ))}
           </div>
 
+          {/* Spaces */}
+          <div className="flex flex-col gap-4">
+            <span className="font-body text-sm uppercase tracking-widest text-brand-lime mb-2">Spaces</span>
+            {[
+              { label: "4 Seater Cabin", href: "/book?plan=4%20Seater%20Cabin" },
+              { label: "6 Seater Cabin", href: "/book?plan=8%20Seater%20Cabin" },
+              { label: "8 Seater Cabin", href: "/book?plan=8%20Seater%20Cabin" },
+              { label: "10 Seater Cabin", href: "/book?plan=8%20Seater%20Cabin" },
+              { label: "Flex Desks", href: "/book?plan=Dedicated%20Desk" },
+            ].map(({ label, href }) => (
+              <Link key={label} href={href} className="font-body text-lg text-white/80 hover:text-white transition-colors w-fit group">
+                {label}
+                <span className="block max-w-0 group-hover:max-w-full transition-all duration-300 h-[1px] bg-brand-lime"></span>
+              </Link>
+            ))}
+          </div>
+
           {/* Socials */}
           <div className="flex flex-col gap-4">
             <span className="font-body text-sm uppercase tracking-widest text-brand-lime mb-2">Connect</span>
@@ -70,9 +87,9 @@ export default function FooterSection() {
             <p className="font-body text-xl text-white/90">
               Your desk is waiting.
             </p>
-            <button className="rounded-full bg-brand-lime text-black px-8 py-4 font-serif text-xl hover:bg-white transition-colors mt-2">
+            <Link href="/book" className="inline-block rounded-full bg-brand-lime text-black px-8 py-4 font-serif text-xl hover:bg-white transition-colors mt-2 text-center">
               Book a Tour
-            </button>
+            </Link>
           </div>
 
         </div>

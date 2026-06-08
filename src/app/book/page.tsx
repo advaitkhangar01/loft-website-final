@@ -28,10 +28,34 @@ export default function BookingPage() {
       "July", "August", "September", "October", "November", "December"
     ];
     const defaultDate = `${monthNames[today.getMonth()]} ${today.getDate()}, ${today.getFullYear()}`;
+    
+    let initialPlan = "4 Seater Cabin";
+    let initialTime = "9:00 AM";
+    
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      const planParam = params.get("plan");
+      const validPlans = [
+        "Day Pass",
+        "Weekly Pass",
+        "Dedicated Desk",
+        "4 Seater Cabin",
+        "8 Seater Cabin",
+        "Meeting Room"
+      ];
+      if (planParam && validPlans.includes(planParam)) {
+        initialPlan = planParam;
+        if (planParam === "4 Seater Cabin" || planParam === "8 Seater Cabin") {
+          initialTime = "";
+        }
+      }
+    }
+
     setBooking((prev) => ({
       ...prev,
+      plan: initialPlan,
       date: prev.date || defaultDate,
-      time: prev.time || "9:00 AM",
+      time: initialTime,
     }));
   }, []);
 
