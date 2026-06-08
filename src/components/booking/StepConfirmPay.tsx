@@ -194,7 +194,7 @@ export default function StepConfirmPay({
 
       {/* WhatsApp Help Redirection placed under the left card */}
       <a
-        href="https://wa.me/918600888073"
+        href="https://wa.me/919168285182"
         target="_blank"
         rel="noopener noreferrer"
         className="flex items-center gap-2.5 text-white/50 hover:text-white transition-all duration-300 pl-4 py-2 font-body text-[13px] sm:text-[14px] cursor-pointer select-none"

@@ -90,7 +90,7 @@ export default function SidebarSummary({ booking, onPayNowClick, isSubmitting = 
       {/* WhatsApp Help Redirection */}
       {booking.step !== 4 && (
         <a
-          href="https://wa.me/918600888073"
+          href="https://wa.me/919168285182"
           target="_blank"
           rel="noopener noreferrer"
           className="flex items-center gap-2 text-white/50 hover:text-white transition-all duration-300 pl-4 py-2 font-body text-xs cursor-pointer select-none"
