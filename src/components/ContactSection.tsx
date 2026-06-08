@@ -103,7 +103,7 @@ export default function ContactSection() {
             {/* Map Location Cards with Squircle Shape */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4">
               {/* Location 1: IT Park */}
-              <div className="group relative bg-[#161616]/40 backdrop-blur-sm border border-white/5 rounded-[24px] p-3 flex flex-col gap-3 hover:border-brand-lime/20 transition-all duration-500 shadow-lg">
+              <div className="group relative bg-[#161616]/40 backdrop-blur-sm border border-white/5 rounded-[24px] p-3 flex flex-col gap-3 hover:border-brand-lime/30 hover:shadow-[0_20px_50px_rgba(159,240,26,0.08)] transition-all duration-500 shadow-lg">
                 <div className="flex items-center justify-between px-2">
                   <span className="font-body text-sm font-semibold uppercase tracking-wider text-white/80 group-hover:text-brand-lime transition-colors">IT Park Office</span>
                   <span className="w-2.5 h-2.5 rounded-full bg-brand-lime shadow-[0_0_10px_rgba(159,240,26,0.5)] animate-pulse" />
@@ -116,11 +116,23 @@ export default function ContactSection() {
                     allowFullScreen
                     loading="lazy"
                   />
+                  <a
+                    href="https://maps.app.goo.gl/jtfvWcVQMffEanGV9"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-3 right-3 bg-black/85 backdrop-blur-md border border-white/10 hover:border-brand-lime/30 text-white/80 hover:text-brand-lime px-4 py-1.5 rounded-full text-xs font-body font-semibold flex items-center gap-1.5 transition-all duration-300 shadow-md hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                    <span>Directions</span>
+                  </a>
                 </div>
               </div>
 
               {/* Location 2: Abhyankar Nagar */}
-              <div className="group relative bg-[#161616]/40 backdrop-blur-sm border border-white/5 rounded-[24px] p-3 flex flex-col gap-3 hover:border-brand-lime/20 transition-all duration-500 shadow-lg">
+              <div className="group relative bg-[#161616]/40 backdrop-blur-sm border border-white/5 rounded-[24px] p-3 flex flex-col gap-3 hover:border-brand-lime/30 hover:shadow-[0_20px_50px_rgba(159,240,26,0.08)] transition-all duration-500 shadow-lg">
                 <div className="flex items-center justify-between px-2">
                   <span className="font-body text-sm font-semibold uppercase tracking-wider text-white/80 group-hover:text-brand-lime transition-colors">Abhyankar Nagar</span>
                   <span className="w-2.5 h-2.5 rounded-full bg-brand-lime shadow-[0_0_10px_rgba(159,240,26,0.5)] animate-pulse" />
@@ -133,6 +145,18 @@ export default function ContactSection() {
                     allowFullScreen
                     loading="lazy"
                   />
+                  <a
+                    href="https://maps.google.com/?q=LOFT+Coworks+Abhyankar+Nagar+Nagpur"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="absolute bottom-3 right-3 bg-black/85 backdrop-blur-md border border-white/10 hover:border-brand-lime/30 text-white/80 hover:text-brand-lime px-4 py-1.5 rounded-full text-xs font-body font-semibold flex items-center gap-1.5 transition-all duration-300 shadow-md hover:scale-[1.03] active:scale-[0.98] cursor-pointer"
+                  >
+                    <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                    </svg>
+                    <span>Directions</span>
+                  </a>
                 </div>
               </div>
             </div>
