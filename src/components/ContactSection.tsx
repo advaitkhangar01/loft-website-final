@@ -111,7 +111,7 @@ export default function ContactSection() {
                 <div className="w-full aspect-[16/10] rounded-[16px] overflow-hidden border border-white/5 relative">
                   <iframe
                     title="LOFT IT Park Map"
-                    src="https://maps.google.com/maps?q=IT%20Park,%20Nagpur,%20Maharashtra&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                    src="https://maps.google.com/maps?q=21.114076491851886,79.04423408036855&t=&z=16&ie=UTF8&iwloc=&output=embed"
                     className="w-full h-full border-0 dark-map"
                     allowFullScreen
                     loading="lazy"
