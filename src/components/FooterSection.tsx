@@ -72,7 +72,7 @@ export default function FooterSection() {
             {[
               { label: "Instagram", href: "https://www.instagram.com/theloftcoworks" },
               { label: "LinkedIn", href: "https://www.linkedin.com/company/loft-coworks/" },
-              { label: "Twitter", href: "#" },
+              { label: "YouTube", href: "https://youtube.com/@loftcoworks?si=arTkww282aZKX9Jl" },
             ].map(({ label, href }) => (
               <Link key={label} href={href} target={href !== "#" ? "_blank" : undefined} rel={href !== "#" ? "noopener noreferrer" : undefined} className="font-body text-lg text-white/80 hover:text-white transition-colors w-fit group">
                 {label}
