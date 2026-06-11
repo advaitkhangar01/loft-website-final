@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import FooterSection from "@/components/FooterSection";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "LOFT Coworks",
@@ -35,6 +36,18 @@ export default function RootLayout({
           {children}
         </div>
         <FooterSection />
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=AW-18230984515"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-18230984515');
+          `}
+        </Script>
       </body>
     </html>
   );
