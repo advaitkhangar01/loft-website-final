@@ -11,7 +11,10 @@ import EarlyAccessSection from "@/components/EarlyAccessSection";
 import MembershipsSection from "@/components/MembershipsSection";
 import ContactSection from "@/components/ContactSection";
 
+export const revalidate = 3600; // Revalidate every hour to keep blogs updated
+
 export default function Home() {
+
   return (
     <main>
       <HeroSection />

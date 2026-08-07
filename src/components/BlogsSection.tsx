@@ -7,8 +7,10 @@ import AnimatedText from "./AnimatedText";
 import { blogs } from "@/data/blogs";
 
 export default function BlogsSection() {
-  // We only display the first 3 blogs on the homepage section
-  const latestBlogs = blogs.slice(0, 3);
+  // Filter out future blogs and display the 3 most recent ones
+  const publishedBlogs = blogs.filter((blog) => new Date(blog.date) <= new Date());
+  const latestBlogs = [...publishedBlogs].reverse().slice(0, 3);
+
 
   return (
     <section id="blogs" className="relative w-full bg-white py-24 md:py-32 overflow-hidden">
