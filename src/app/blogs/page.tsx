@@ -8,7 +8,11 @@ import AnimatedText from "@/components/AnimatedText";
 import NewsletterForm from "@/components/NewsletterForm";
 import { blogs } from "@/data/blogs";
 
+export const dynamic = "force-dynamic";
+
 export default function BlogsPage() {
+  const publishedBlogs = blogs.filter((blog) => new Date(blog.date) <= new Date());
+
   return (
     <main className="min-h-screen bg-white relative overflow-hidden pb-24">
       {/* Background Vignettes matching homepage blogs section */}
@@ -70,7 +74,7 @@ export default function BlogsPage() {
           }}
           className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-28"
         >
-          {blogs.map((blog) => (
+          {publishedBlogs.map((blog) => (
             <motion.div 
               key={blog.id}
               variants={{

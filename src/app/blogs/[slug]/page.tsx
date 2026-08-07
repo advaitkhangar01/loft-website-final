@@ -5,12 +5,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import NewsletterForm from "@/components/NewsletterForm";
 
-// Generate static params for the dynamic routes
-export function generateStaticParams() {
-  return blogs.map((blog) => ({
-    slug: blog.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 export default async function BlogPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -19,6 +14,12 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
   if (!blog) {
     notFound();
   }
+
+  // Hide the blog if its publish date is in the future
+  if (new Date(blog.date) > new Date()) {
+    notFound();
+  }
+
 
   return (
     <main className="min-h-screen bg-white relative overflow-hidden">
