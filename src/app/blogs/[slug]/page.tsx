@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Header from "@/components/Header";
 import NewsletterForm from "@/components/NewsletterForm";
+import ShareArticleBox from "@/components/ShareArticleBox";
 
 export const dynamic = "force-dynamic";
 
@@ -78,7 +79,7 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
         </div>
 
         {/* Blog Content & Sidebar */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_250px] gap-16">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_260px] gap-16">
           {/* Main article content */}
           <div className="font-body text-lg md:text-xl text-black/80 leading-[1.7] space-y-10 max-w-3xl">
             {blog.content.map((paragraph, index) => (
@@ -101,20 +102,16 @@ export default async function BlogPage({ params }: { params: Promise<{ slug: str
                 </span>
               ))}
             </div>
+
+            {/* Mobile Share Box */}
+            <div className="block lg:hidden pt-6">
+              <ShareArticleBox title={blog.title} slug={blog.slug} />
+            </div>
           </div>
 
-          {/* Sidebar */}
+          {/* Desktop Sidebar */}
           <div className="hidden lg:flex flex-col gap-8 sticky top-32 h-fit">
-            <div className="p-8 rounded-[2rem] bg-gray-50 border border-black/5">
-              <p className="font-heading text-sm uppercase tracking-widest text-black/40 mb-4">Share Article</p>
-              <div className="flex gap-4">
-                {['tw', 'li', 'fb'].map((social) => (
-                  <div key={social} className="w-10 h-10 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white cursor-pointer transition-all">
-                    <span className="text-xs font-bold uppercase">{social}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
+            <ShareArticleBox title={blog.title} slug={blog.slug} />
           </div>
         </div>
         
